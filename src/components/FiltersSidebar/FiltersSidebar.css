@@ -1,0 +1,80 @@
+.filters {
+  background: #ffffff;
+  border: 1px solid #e6e8ee;
+  border-radius: 18px;
+  padding: 28px 24px;
+  min-width: 0;
+}
+
+.filters__group + .filters__group {
+  margin-top: 34px;
+}
+
+.filters__title {
+  margin: 0 0 30px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #14213d;
+}
+
+.filters__subtitle {
+  margin: 0 0 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #14213d;
+}
+
+.filters__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #49566d;
+  cursor: pointer;
+}
+
+.filters__checkbox input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.filters__price-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #6d7890;
+}
+
+.filters__price-row {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.filters__dash {
+  text-align: center;
+  color: #6d7890;
+}
+
+.filters__price-input {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  border: 1px solid #dfe3eb;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 16px;
+  color: #14213d;
+  outline: none;
+  background: #fff;
+}
+
+.filters__price-input:focus {
+  border-color: #ff7a00;
+}

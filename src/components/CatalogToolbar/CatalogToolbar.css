@@ -1,0 +1,40 @@
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e6e8ee;
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin-bottom: 26px;
+}
+
+.catalog-toolbar__count {
+  margin: 0;
+  font-size: 17px;
+  color: #5b6780;
+}
+
+.catalog-toolbar__sort {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #49566d;
+  font-size: 16px;
+}
+
+.catalog-toolbar__select {
+  min-width: 200px;
+  height: 40px;
+  border: 1px solid #e2e5ec;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 16px;
+  color: #14213d;
+  background: #f7f7f9;
+  outline: none;
+}
+
+.catalog-toolbar__select:focus {
+  border-color: #ff7a00;
+}

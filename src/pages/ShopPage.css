@@ -1,0 +1,15 @@
+.shop {
+  padding: 34px 0 64px;
+  background: #f7f7f7;
+}
+
+.shop__container {
+  display: grid;
+  grid-template-columns: 275px 1fr;
+  gap: 34px;
+  align-items: start;
+}
+
+.shop__content {
+  min-width: 0;
+}
