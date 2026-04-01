@@ -1,6 +1,8 @@
 import "./FiltersSidebar.css";
 
-function FiltersSidebar() {
+function FiltersSidebar({ ratingFilters, onRatingChange }) {
+  const { gte5, gte4, gte3 } = ratingFilters;
+
   return (
     <aside className="filters">
       <h2 className="filters__title">Filters</h2>
@@ -9,17 +11,29 @@ function FiltersSidebar() {
         <h3 className="filters__subtitle">Rating</h3>
 
         <label className="filters__checkbox">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={gte5}
+            onChange={(e) => onRatingChange("gte5", e.target.checked)}
+          />
           <span>5+ Stars</span>
         </label>
 
         <label className="filters__checkbox">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={gte4}
+            onChange={(e) => onRatingChange("gte4", e.target.checked)}
+          />
           <span>4+ Stars</span>
         </label>
 
         <label className="filters__checkbox">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={gte3}
+            onChange={(e) => onRatingChange("gte3", e.target.checked)}
+          />
           <span>3+ Stars</span>
         </label>
       </div>

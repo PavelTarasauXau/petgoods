@@ -1,0 +1,18 @@
+.page {
+  padding: 48px 0 64px;
+  min-height: 40vh;
+}
+
+.page__title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #14213d;
+}
+
+.page__lead {
+  margin: 0;
+  font-size: 16px;
+  color: #5d6780;
+  line-height: 1.5;
+}

@@ -18,9 +18,9 @@ function Header() {
 
         <nav className="header__nav">
           <Link to="/">Shop</Link>
-          <Link to="/">Categories</Link>
-          <Link to="/">Deals</Link>
-          <Link to="/">About</Link>
+          <Link to="/categories">Categories</Link>
+          <Link to="/deals">Deals</Link>
+          <Link to="/about">About</Link>
         </nav>
 
         <div className="header__actions">
@@ -28,9 +28,9 @@ function Header() {
             <img src={searchIcon} alt="" />
           </button>
 
-          <button className="header__icon-btn" type="button" aria-label="Cart">
+          <Link to="/cart" className="header__icon-btn" aria-label="Cart">
             <img src={cartIcon} alt="" />
-          </button>
+          </Link>
         </div>
       </div>
     </header>

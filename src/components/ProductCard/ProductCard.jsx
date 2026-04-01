@@ -6,6 +6,15 @@ function ProductCard({ product }) {
 
   const fullStars = "★".repeat(rating);
   const emptyStars = "☆".repeat(5 - rating);
+  const reviewCount =
+    typeof reviews === "number" && !Number.isInteger(reviews)
+      ? Math.round(reviews)
+      : reviews;
+
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
 
   return (
     <Link to={`/product/${id}`} className="product-card">
@@ -14,24 +23,32 @@ function ProductCard({ product }) {
 
         <div className="product-card__price-badge">${price.toFixed(2)}</div>
 
-        <div className="product-card__hover-panel">
-          <h3 className="product-card__hover-title">{title}</h3>
+        <div className="product-card__overlay" aria-hidden="true">
+          <div className="product-card__overlay-box">
+            <h3 className="product-card__overlay-title">{title}</h3>
 
-          <div className="product-card__hover-rating">
-            <span className="product-card__stars product-card__stars--filled">
-              {fullStars}
-            </span>
-            <span className="product-card__stars product-card__stars--empty">
-              {emptyStars}
-            </span>
-            <span className="product-card__reviews">({reviews})</span>
-          </div>
+            <div className="product-card__overlay-rating">
+              <span className="product-card__stars product-card__stars--filled">
+                {fullStars}
+              </span>
+              <span className="product-card__stars product-card__stars--empty">
+                {emptyStars}
+              </span>
+              <span className="product-card__reviews">({reviewCount})</span>
+            </div>
 
-          <div className="product-card__hover-bottom">
-            <span className="product-card__hover-price">${price.toFixed(2)}</span>
-            <button className="product-card__cart-btn" type="button">
-              🛒
-            </button>
+            <div className="product-card__overlay-footer">
+              <span className="product-card__overlay-price">
+                ${price.toFixed(2)}
+              </span>
+              <span
+                className="product-card__cart-btn"
+                onClick={handleCartClick}
+                role="presentation"
+              >
+                🛒
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -46,7 +63,7 @@ function ProductCard({ product }) {
           <span className="product-card__stars product-card__stars--empty">
             {emptyStars}
           </span>
-          <span className="product-card__reviews">({reviews})</span>
+          <span className="product-card__reviews">({reviewCount})</span>
         </div>
       </div>
     </Link>

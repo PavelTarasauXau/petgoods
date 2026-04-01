@@ -51,15 +51,18 @@
 
 .filters__price-row {
   display: grid;
-  grid-template-columns: 1fr 20px 1fr;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   width: 100%;
+  max-width: 100%;
 }
 
 .filters__dash {
   text-align: center;
   color: #6d7890;
+  padding: 0 2px;
+  min-width: 1ch;
 }
 
 .filters__price-input {

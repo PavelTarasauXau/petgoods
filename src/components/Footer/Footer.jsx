@@ -29,9 +29,9 @@ function Footer() {
             <h3 className="footer__title">Quick Links</h3>
             <nav className="footer__links">
               <Link to="/">Shop All</Link>
-              <Link to="/">New Arrivals</Link>
-              <Link to="/">Best Sellers</Link>
-              <Link to="/">Sale Items</Link>
+              <Link to="/categories">Categories</Link>
+              <Link to="/deals">Deals</Link>
+              <Link to="/about">About</Link>
             </nav>
           </div>
 

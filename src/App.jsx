@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "./components/Layout/MainLayout";
-import ShopPage from "./pages/ShopPage.jsx";
-import CategoriesPage from "./pages/CategoriesPage.jsx";
-import DealsPage from "./pages/DealsPage.jsx";
-import AboutPage from "./pages/AboutPage.jsx";
-import ProductPage from "./pages/ProductPage.jsx";
-import CartPage from "./pages/CartPage.jsx";
+import ShopPage from "./pages/ShopPage/ShopPage.jsx";
+import CategoriesPage from "./pages/CategoriesPage/CategoriesPage.jsx";
+import DealsPage from "./pages/DealsPage/DealsPage.jsx";
+import AboutPage from "./pages/AboutPage/AboutPage.jsx";
+import ProductPage from "./pages/ProductPage/ProductPage.jsx";
+import CartPage from "./pages/CartPage/CartPage.jsx";
 import "./App.css";
 
 function App() {

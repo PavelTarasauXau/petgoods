@@ -1,0 +1,37 @@
+.page {
+  padding: 48px 0 64px;
+  min-height: 40vh;
+}
+
+.page__title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #14213d;
+}
+
+.page__lead {
+  margin: 0;
+  font-size: 16px;
+  color: #5d6780;
+  line-height: 1.5;
+}
+
+.product-page__back {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ff7a00;
+}
+
+.product-page__back:hover {
+  text-decoration: underline;
+}
+
+.product-page__price {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff7a00;
+}

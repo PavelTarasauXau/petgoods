@@ -3,3 +3,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
 }
+
+.products-grid__empty {
+  margin: 24px 0 0;
+  padding: 28px 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #6d7890;
+  background: #ffffff;
+  border: 1px solid #e6e8ee;
+  border-radius: 18px;
+}
