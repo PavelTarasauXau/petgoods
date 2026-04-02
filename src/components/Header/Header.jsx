@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext.jsx";
 import "./Header.css";
 
 import pawIcon from "../../assets/paw.png";
@@ -6,6 +7,8 @@ import searchIcon from "../../assets/search.png";
 import cartIcon from "../../assets/cart.png";
 
 function Header() {
+  const { totalItemCount } = useCart();
+
   return (
     <header className="header">
       <div className="header__container">
@@ -28,8 +31,13 @@ function Header() {
             <img src={searchIcon} alt="" />
           </button>
 
-          <Link to="/cart" className="header__icon-btn" aria-label="Cart">
-            <img src={cartIcon} alt="" />
+          <Link to="/cart" className="header__cart-link" aria-label="Shopping cart">
+            <span className="header__cart-wrap">
+              <img src={cartIcon} alt="" />
+              {totalItemCount > 0 && (
+                <span className="header__cart-badge">{totalItemCount}</span>
+              )}
+            </span>
           </Link>
         </div>
       </div>

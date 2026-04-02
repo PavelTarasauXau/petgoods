@@ -71,6 +71,7 @@
 .product-card:hover .product-card__overlay {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .product-card__overlay-box {
@@ -145,6 +146,8 @@
   width: 52px;
   height: 52px;
   flex-shrink: 0;
+  padding: 0;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,6 +159,11 @@
   box-shadow: 0 8px 18px rgba(255, 122, 0, 0.45);
   cursor: pointer;
   user-select: none;
+}
+
+.product-card__cart-btn:focus-visible {
+  outline: 2px solid #ff7a00;
+  outline-offset: 2px;
 }
 
 .product-card__overlay-description {

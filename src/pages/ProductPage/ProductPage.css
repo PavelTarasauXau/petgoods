@@ -35,3 +35,68 @@
   font-weight: 700;
   color: #ff7a00;
 }
+
+.product-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.product-page__media {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e6e8ee;
+}
+
+.product-page__image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.product-page__category {
+  margin: 0 0 10px;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.12);
+  color: #ff7a00;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.product-page__title {
+  margin-bottom: 8px;
+}
+
+.product-page__description {
+  margin-bottom: 24px;
+}
+
+.product-page__add-btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff7a00 0%, #ff5e9a 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-page__add-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(255, 122, 0, 0.45);
+}
+
+.product-page__add-btn:focus-visible {
+  outline: 2px solid #ff7a00;
+  outline-offset: 3px;
+}

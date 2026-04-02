@@ -1,7 +1,46 @@
 import "./FiltersSidebar.css";
 
-function FiltersSidebar({ ratingFilters, onRatingChange }) {
+// Значения по умолчанию для полей цены, если пользователь очистил input
+const DEFAULT_MIN_PRICE = 0;
+const DEFAULT_MAX_PRICE = 100;
+
+function FiltersSidebar({
+  ratingFilters,
+  onRatingChange,
+  priceMin,
+  priceMax,
+  onPriceMinChange,
+  onPriceMaxChange,
+}) {
   const { gte5, gte4, gte3 } = ratingFilters;
+
+  function handleMinPriceChange(event) {
+    const text = event.target.value;
+
+    if (text === "") {
+      onPriceMinChange(DEFAULT_MIN_PRICE);
+      return;
+    }
+
+    const number = Number(text);
+    if (!Number.isNaN(number)) {
+      onPriceMinChange(number);
+    }
+  }
+
+  function handleMaxPriceChange(event) {
+    const text = event.target.value;
+
+    if (text === "") {
+      onPriceMaxChange(DEFAULT_MAX_PRICE);
+      return;
+    }
+
+    const number = Number(text);
+    if (!Number.isNaN(number)) {
+      onPriceMaxChange(number);
+    }
+  }
 
   return (
     <aside className="filters">
@@ -47,9 +86,25 @@ function FiltersSidebar({ ratingFilters, onRatingChange }) {
         </div>
 
         <div className="filters__price-row">
-          <input type="number" defaultValue="0" className="filters__price-input" />
+          <input
+            type="number"
+            min={0}
+            step={0.01}
+            inputMode="decimal"
+            className="filters__price-input"
+            value={priceMin}
+            onChange={handleMinPriceChange}
+          />
           <span className="filters__dash">-</span>
-          <input type="number" defaultValue="100" className="filters__price-input" />
+          <input
+            type="number"
+            min={0}
+            step={0.01}
+            inputMode="decimal"
+            className="filters__price-input"
+            value={priceMax}
+            onChange={handleMaxPriceChange}
+          />
         </div>
       </div>
     </aside>

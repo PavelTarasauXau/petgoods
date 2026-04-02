@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext.jsx";
 import "./ProductCard.css";
 
 function ProductCard({ product }) {
+  const { addLine } = useCart();
   const { id, title, price, rating, reviews, image } = product;
 
   const fullStars = "★".repeat(rating);
@@ -11,10 +13,11 @@ function ProductCard({ product }) {
       ? Math.round(reviews)
       : reviews;
 
-  const handleCartClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+  function handleAddToCartClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    addLine(product);
+  }
 
   return (
     <Link to={`/product/${id}`} className="product-card">
@@ -41,13 +44,14 @@ function ProductCard({ product }) {
               <span className="product-card__overlay-price">
                 ${price.toFixed(2)}
               </span>
-              <span
+              <button
+                type="button"
                 className="product-card__cart-btn"
-                onClick={handleCartClick}
-                role="presentation"
+                onClick={handleAddToCartClick}
+                aria-label={`Add ${title} to cart`}
               >
                 🛒
-              </span>
+              </button>
             </div>
           </div>
         </div>
