@@ -1,31 +1,44 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./ProductGallery.css";
 
-/** Пока в данных одна картинка — передаём её три раза, чтобы в слайдере было ≥3 кадра по ТЗ. */
 function ProductGallery({ images, productTitle }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [animDir, setAnimDir] = useState(null);
+  const animTimeoutRef = useRef(null);
+
   const count = images.length;
   const safeIndex = count > 0 ? activeIndex % count : 0;
 
+  function triggerSlide(nextIndex, direction) {
+    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
+    setAnimDir(direction);
+    setActiveIndex(nextIndex);
+    animTimeoutRef.current = setTimeout(() => setAnimDir(null), 350);
+  }
+
   function goToPrevious() {
-    setActiveIndex((i) => (i - 1 + count) % count);
+    triggerSlide((safeIndex - 1 + count) % count, "slide-right");
   }
 
   function goToNext() {
-    setActiveIndex((i) => (i + 1) % count);
+    triggerSlide((safeIndex + 1) % count, "slide-left");
   }
 
-  if (count === 0) {
-    return null;
+  function goToIndex(i) {
+    if (i === safeIndex) return;
+    triggerSlide(i, i > safeIndex ? "slide-left" : "slide-right");
   }
+
+  if (count === 0) return null;
 
   return (
     <div className="product-gallery">
       <div className="product-gallery__viewport">
         <img
+          key={safeIndex}
           src={images[safeIndex]}
           alt={`${productTitle} — view ${safeIndex + 1}`}
-          className="product-gallery__image"
+          className={`product-gallery__image${animDir ? ` product-gallery__image--${animDir}` : ""}`}
         />
       </div>
 
@@ -48,7 +61,11 @@ function ProductGallery({ images, productTitle }) {
         </button>
       </div>
 
-      <div className="product-gallery__dots" role="tablist" aria-label="Slide indicators">
+      <div
+        className="product-gallery__dots"
+        role="tablist"
+        aria-label="Slide indicators"
+      >
         {images.map((_, index) => (
           <button
             key={index}
@@ -60,7 +77,7 @@ function ProductGallery({ images, productTitle }) {
                 ? "product-gallery__dot product-gallery__dot--active"
                 : "product-gallery__dot"
             }
-            onClick={() => setActiveIndex(index)}
+            onClick={() => goToIndex(index)}
             aria-label={`Show image ${index + 1}`}
           />
         ))}

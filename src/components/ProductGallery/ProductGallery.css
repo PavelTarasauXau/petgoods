@@ -9,6 +9,8 @@
 .product-gallery__viewport {
   aspect-ratio: 1;
   background: #f1f1f1;
+  overflow: hidden;
+  position: relative;
 }
 
 .product-gallery__image {
@@ -16,9 +18,43 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: opacity 0.28s ease;
 }
 
+/*  Slide-in animations  */
+
+/* Next → image enters from the right */
+.product-gallery__image--slide-left {
+  animation: gallery-slide-in-left 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Prev ← image enters from the left */
+.product-gallery__image--slide-right {
+  animation: gallery-slide-in-right 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes gallery-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes gallery-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*  Arrows  */
 .product-gallery__controls {
   position: absolute;
   inset: 0;
@@ -46,9 +82,10 @@
 
 .product-gallery__arrow:hover {
   background: #ffffff;
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
+/*  Dots  */
 .product-gallery__dots {
   display: flex;
   justify-content: center;
@@ -70,7 +107,7 @@
 
 .product-gallery__dot--active {
   background: #ff7a00;
-  transform: scale(1.15);
+  transform: scale(1.25);
 }
 
 .product-gallery__dot:hover {
