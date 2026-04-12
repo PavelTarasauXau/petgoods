@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 
@@ -30,6 +31,10 @@ function loadLinesFromStorage() {
 export function CartProvider({ children }) {
   const [lines, setLines] = useState(loadLinesFromStorage);
 
+  const [toastMessage, setToastMessage] = useState("");
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const toastTimerRef = useRef(null);
+
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
@@ -38,22 +43,58 @@ export function CartProvider({ children }) {
     }
   }, [lines]);
 
-  const addLine = useCallback((product) => {
-    const imageSrc =
-      typeof product.image === "string" ? product.image : String(product.image);
-
-    const line = {
-      lineId: newLineId(),
-      productId: product.id,
-      title: product.title,
-      price: product.price,
-      image: imageSrc,
-      category: product.category ?? "General",
-      quantity: 1,
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
     };
-
-    setLines((previous) => [...previous, line]);
   }, []);
+
+  const showToast = useCallback((message) => {
+    setToastMessage(message);
+    setIsToastVisible(true);
+
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+
+    toastTimerRef.current = setTimeout(() => {
+      setIsToastVisible(false);
+    }, 2500);
+  }, []);
+
+  const hideToast = useCallback(() => {
+    setIsToastVisible(false);
+
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
+  }, []);
+
+  const addLine = useCallback(
+    (product) => {
+      const imageSrc =
+        typeof product.image === "string"
+          ? product.image
+          : String(product.image);
+
+      const line = {
+        lineId: newLineId(),
+        productId: product.id,
+        title: product.title,
+        price: product.price,
+        image: imageSrc,
+        category: product.category ?? "General",
+        quantity: 1,
+      };
+
+      setLines((previous) => [...previous, line]);
+      showToast(`${product.title} added to cart!`);
+    },
+    [showToast]
+  );
 
   const increment = useCallback((lineId) => {
     setLines((previous) =>
@@ -85,8 +126,7 @@ export function CartProvider({ children }) {
   );
 
   const subtotal = useMemo(
-    () =>
-      lines.reduce((sum, line) => sum + line.price * line.quantity, 0),
+    () => lines.reduce((sum, line) => sum + line.price * line.quantity, 0),
     [lines]
   );
 
@@ -99,13 +139,25 @@ export function CartProvider({ children }) {
       removeLine,
       totalItemCount,
       subtotal,
+      toastMessage,
+      isToastVisible,
+      hideToast,
     }),
-    [lines, addLine, increment, decrement, removeLine, totalItemCount, subtotal]
+    [
+      lines,
+      addLine,
+      increment,
+      decrement,
+      removeLine,
+      totalItemCount,
+      subtotal,
+      toastMessage,
+      isToastVisible,
+      hideToast,
+    ]
   );
 
-  return (
-    <CartContext.Provider value={value}>{children}</CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {

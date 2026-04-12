@@ -1,5 +1,3 @@
-/*Надо будет сделать шрифт чуть менее жирным, сделать белые иконки для соц сетей и по мелочи еще что - нибудь доработать*/
-
 .footer {
   background: #071733;
   color: #ffffff;
@@ -12,6 +10,7 @@
   padding: 0 32px;
 }
 
+/* ─── Top grid ───────────────────────────────────────────────── */
 .footer__top {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
@@ -40,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .footer__logo-icon {
@@ -50,21 +50,23 @@
 
 .footer__logo-text {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 500; /* было 600, чуть легче */
   line-height: 1;
 }
 
 .footer__description {
   margin: 0;
   color: #c3cee0;
-  font-size: 17px;
+  font-size: 15px; /* немного меньше */
+  font-weight: 400;
   line-height: 1.55;
 }
 
+/* ─── Links block ────────────────────────────────────────────── */
 .footer__title {
   margin: 6px 0 26px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px; /* было 18px */
+  font-weight: 600; /* было 700 */
   color: #ffffff;
 }
 
@@ -76,8 +78,9 @@
 
 .footer__links a {
   text-decoration: none;
-  color: #ffffff;
-  font-size: 17px;
+  color: #c3cee0; /* было белый, чуть приглушённее */
+  font-size: 15px;
+  font-weight: 400;
   transition: color 0.2s ease;
 }
 
@@ -85,10 +88,12 @@
   color: #ff7a00;
 }
 
+/* ─── Newsletter ─────────────────────────────────────────────── */
 .footer__newsletter-text {
   margin: 0 0 22px;
   color: #c3cee0;
-  font-size: 17px;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1.55;
 }
 
@@ -106,7 +111,7 @@
   border-radius: 6px;
   background: #11203d;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 15px;
   outline: none;
 }
 
@@ -119,13 +124,13 @@
 }
 
 .footer__submit {
+  flex-shrink: 0;
   width: 56px;
   height: 44px;
   border: none;
   border-radius: 6px;
   background: #ff7a00;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,17 +141,19 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  /* Делаем иконку белой через filter */
+  filter: brightness(0) invert(1);
 }
 
 .footer__submit:hover {
   background: #ff8c1a;
 }
 
+/* ─── Bottom ─────────────────────────────────────────────────── */
 .footer__bottom {
   margin-top: 40px;
   padding-top: 28px;
   border-top: 1px solid #1c2d4a;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,7 +162,8 @@
 .footer__copyright {
   margin: 0;
   color: #c3cee0;
-  font-size: 16px;
+  font-size: 14px; /* было 16px */
+  font-weight: 400;
 }
 
 .footer__socials {
@@ -168,16 +176,88 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #11203d;
   text-decoration: none;
+  transition: background 0.2s ease;
 }
 
 .footer__social-link img {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   object-fit: contain;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  /* Белые иконки */
+  filter: brightness(0) invert(1);
+  transition: opacity 0.2s ease;
+}
+
+.footer__social-link:hover {
+  background: #ff7a00;
 }
 
 .footer__social-link:hover img {
-  opacity: 0.75;
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+    column-gap: 40px;
+  }
+
+  .footer__brand {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 24px;
+  }
+
+  .footer__container {
+    padding: 0 20px;
+  }
+
+  .footer__top {
+    column-gap: 28px;
+    row-gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 32px;
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  .footer__container {
+    padding: 0 16px;
+  }
+
+  .footer__logo-text {
+    font-size: 18px;
+  }
+
+  .footer__form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer__submit {
+    width: 100%;
+  }
 }
