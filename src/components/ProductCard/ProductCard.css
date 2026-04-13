@@ -204,3 +204,31 @@
   color: #7b869e;
   font-size: 15px;
 }
+
+@media (max-width: 1024px) {
+  .product-card__image-wrapper {
+    height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card__image-wrapper {
+    height: 220px;
+  }
+
+  .product-card__overlay-title {
+    font-size: 16px;
+  }
+
+  .product-card__overlay-price {
+    font-size: 18px;
+  }
+
+  .product-card__body {
+    padding: 14px;
+  }
+
+  .product-card__title {
+    font-size: 15px;
+  }
+}

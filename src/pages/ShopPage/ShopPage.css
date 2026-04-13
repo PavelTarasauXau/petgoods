@@ -13,3 +13,27 @@
 .shop__content {
   min-width: 0;
 }
+
+@media (max-width: 1024px) {
+  .shop__container {
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shop {
+    padding: 24px 0 48px;
+  }
+
+  .shop__container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop {
+    padding: 16px 0 40px;
+  }
+}

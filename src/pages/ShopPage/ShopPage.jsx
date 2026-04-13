@@ -5,7 +5,6 @@ import CatalogToolbar from "../../components/CatalogToolbar/CatalogToolbar";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 import { products } from "../../components/data/products";
 import "./ShopPage.css";
-
 // Начальное состояние чекбоксов рейтинга (ничего не выбрано = показываем все товары)
 const initialRatingFilters = {
   gte5: false,

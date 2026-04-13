@@ -29,3 +29,35 @@
   line-height: 1.4;
   font-weight: 400;
 }
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 180px;
+  }
+
+  .hero__content {
+    padding: 28px 0;
+  }
+
+  .hero__title {
+    font-size: 32px;
+  }
+
+  .hero__text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 160px;
+  }
+
+  .hero__title {
+    font-size: 26px;
+  }
+
+  .hero__text {
+    font-size: 15px;
+  }
+}

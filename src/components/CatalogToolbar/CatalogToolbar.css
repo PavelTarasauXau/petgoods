@@ -38,3 +38,39 @@
 .catalog-toolbar__select:focus {
   border-color: #ff7a00;
 }
+
+@media (max-width: 768px) {
+  .catalog-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .catalog-toolbar__sort {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .catalog-toolbar__select {
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-toolbar__count {
+    font-size: 15px;
+  }
+
+  .catalog-toolbar__sort {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .catalog-toolbar__select {
+    font-size: 14px;
+    height: 38px;
+  }
+}

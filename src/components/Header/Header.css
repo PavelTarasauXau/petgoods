@@ -46,6 +46,7 @@
   letter-spacing: -0.02em;
 }
 
+/* ─── Nav (десктоп) ──────────────────────────────────────────── */
 .header__nav {
   display: flex;
   align-items: center;
@@ -69,6 +70,7 @@
   color: #ff7a00;
 }
 
+/* ─── Actions ────────────────────────────────────────────────── */
 .header__actions {
   display: flex;
   align-items: center;
@@ -147,39 +149,96 @@
   text-align: center;
 }
 
-@media (max-width: 1024px) {
-  .header__nav {
-    gap: 24px;
-  }
+/* ─── Бургер (скрыт на десктопе) ────────────────────────────── */
+.header__burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .header__container {
-    padding: 0 20px;
-  }
+.header__burger:hover {
+  background: #f3f5f8;
+}
 
+.header__burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: #16233b;
+  transform-origin: center;
+}
+
+/* ─── Мобильное меню (скрыто по умолчанию) ──────────────────── */
+.header__mobile-nav {
+  display: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  /* Скрываем десктопный nav */
   .header__nav {
-    gap: 16px;
+    display: none;
   }
 
-  .header__nav a {
-    font-size: 14px;
+  /* Показываем бургер */
+  .header__burger {
+    display: flex;
   }
 
-  .header__logo-text {
-    font-size: 18px;
+  /* Мобильное меню — на всю ширину, в потоке */
+  .header__mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: #ffffff;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 8px 0;
+  }
+
+  .header__mobile-nav--open {
+    display: flex;
+  }
+
+  .header__mobile-nav a {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #49566d;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f2f5;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .header__mobile-nav a:last-child {
+    border-bottom: none;
+  }
+
+  .header__mobile-nav a:hover {
+    background: #fff8f0;
+    color: #ff7a00;
   }
 }
 
 @media (max-width: 480px) {
   .header__container {
-    padding: 0 12px;
+    padding: 0 16px;
     height: 64px;
   }
 
   .header__logo-circle {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
   .header__logo-icon {
@@ -188,28 +247,6 @@
   }
 
   .header__logo-text {
-    font-size: 16px;
-  }
-
-  .header__nav {
-    gap: 10px;
-  }
-
-  .header__nav a {
-    font-size: 13px;
-  }
-
-  .header__actions {
-    gap: 8px;
-  }
-}
-
-@media (max-width: 375px) {
-  .header__logo-text {
-    display: none;
-  }
-
-  .header__nav a {
-    font-size: 12px;
+    font-size: 18px;
   }
 }

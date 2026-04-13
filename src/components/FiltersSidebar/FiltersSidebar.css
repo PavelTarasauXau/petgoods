@@ -81,3 +81,44 @@
 .filters__price-input:focus {
   border-color: #ff7a00;
 }
+
+/* На мобилке сайдбар становится горизонтальной полосой */
+@media (max-width: 768px) {
+  .filters {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+  }
+
+  .filters__title {
+    grid-column: 1 / -1;
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+
+  .filters__group + .filters__group {
+    margin-top: 0;
+  }
+
+  .filters__subtitle {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .filters__title {
+    font-size: 17px;
+  }
+
+  .filters__price-input {
+    height: 42px;
+    font-size: 15px;
+  }
+}
