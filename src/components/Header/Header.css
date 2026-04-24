@@ -37,11 +37,13 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  filter: brightness(0) invert(1); /* делает белой */
+  transform: rotate(45deg); /* поворот */
 }
 
 .header__logo-text {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -61,7 +63,7 @@
   text-decoration: none;
   color: #49566d;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   transition: color 0.2s ease;
 }
@@ -217,7 +219,9 @@
     color: #49566d;
     text-decoration: none;
     border-bottom: 1px solid #f0f2f5;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
   }
 
   .header__mobile-nav a:last-child {

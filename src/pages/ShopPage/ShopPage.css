@@ -17,7 +17,7 @@
 .products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  gap: 20px;
 }
 
 /* Мобильный блок фильтров — скрыт на десктопе */

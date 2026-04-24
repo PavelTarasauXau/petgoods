@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-import pawIcon from "../../assets/paw.png";
+import pawIcon from "../../assets/paw2.png";
 import mailIcon from "../../assets/mail.png";
 import twitterIcon from "../../assets/twitter.png";
 import instagramIcon from "../../assets/instagram.png";
@@ -15,7 +15,11 @@ function Footer() {
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
               <span className="footer__logo-circle">
-                <img src={pawIcon} alt="PawsStore logo" className="footer__logo-icon" />
+                <img
+                  src={pawIcon}
+                  alt="PawsStore logo"
+                  className="footer__logo-icon"
+                />
               </span>
               <span className="footer__logo-text">PawsStore</span>
             </Link>
@@ -57,7 +61,11 @@ function Footer() {
                 placeholder="Your email"
                 className="footer__input"
               />
-              <button type="submit" className="footer__submit" aria-label="Subscribe">
+              <button
+                type="submit"
+                className="footer__submit"
+                aria-label="Subscribe"
+              >
                 <img src={mailIcon} alt="" />
               </button>
             </form>

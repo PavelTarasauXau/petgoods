@@ -4,6 +4,7 @@ import { products } from "../../components/data/products";
 import { useCart } from "../../context/CartContext.jsx";
 import ProductGallery from "../../components/ProductGallery/ProductGallery.jsx";
 import "./ProductPage.css";
+import boxIcon from "../../assets/box.png";
 
 function buildGalleryImages(mainImage) {
   return [mainImage, mainImage, mainImage];
@@ -154,7 +155,13 @@ function ProductPage() {
             {product.specs && product.specs.length > 0 && (
               <section className="product-page__specs">
                 <div className="product-page__specs-header">
-                  <span className="product-page__specs-icon">⬢</span>
+                  <span className="product-page__specs-icon">
+                    <img
+                      src={boxIcon}
+                      alt=""
+                      className="product-card__cart-icon"
+                    />
+                  </span>
                   <h2 className="product-page__specs-title">
                     Technical Specifications
                   </h2>

@@ -1,6 +1,6 @@
 .hero {
   background: linear-gradient(90deg, #ff6a00 0%, #ff4f6d 50%, #f533a8 100%);
-  min-height: 220px;
+  min-height: 200px;
   display: flex;
   align-items: center;
 }
@@ -17,9 +17,9 @@
 .hero__title {
   margin: 0 0 12px;
   color: #ffffff;
-  font-size: 42px;
+  font-size: 36px;
   line-height: 1.15;
-  font-weight: 800;
+  font-weight: 750;
 }
 
 .hero__text {
