@@ -40,9 +40,7 @@ function ProductPage() {
 
   function handleAddToCart() {
     const count = Math.max(1, quantity);
-    for (let i = 0; i < count; i += 1) {
-      addLine(product);
-    }
+    addLine(product, count);
   }
 
   function decreaseQty() {
@@ -55,21 +53,21 @@ function ProductPage() {
 
   return (
     <div className="page page--product">
-      <div className="container product-page">
-        <nav className="product-page__breadcrumbs" aria-label="Breadcrumb">
-          <Link to="/">Home</Link>
-          <span className="product-page__bc-sep" aria-hidden="true">
-            ›
-          </span>
-          <span className="product-page__bc-current">{product.category}</span>
-          <span className="product-page__bc-sep" aria-hidden="true">
-            ›
-          </span>
-          <span className="product-page__bc-current product-page__bc-current--title">
-            {product.title}
-          </span>
-        </nav>
+      <div className="product-page__topbar">
+        <div className="container">
+          <nav className="product-page__breadcrumbs" aria-label="Breadcrumb">
+            <Link to="/">Home</Link>
+            <span className="product-page__bc-sep">›</span>
+            <span className="product-page__bc-current">{product.category}</span>
+            <span className="product-page__bc-sep">›</span>
+            <span className="product-page__bc-current product-page__bc-current--title">
+              {product.title}
+            </span>
+          </nav>
+        </div>
+      </div>
 
+      <div className="container product-page">
         <div className="product-page__layout">
           <div className="product-page__media">
             <ProductGallery
