@@ -292,10 +292,16 @@
 }
 
 .product-page__spec-card {
+  cursor: default;
+  transition: border 0.2s ease;
   padding: 12px 14px;
-  border: 1px solid #e2e8f0;
+  outline: 2px solid transparent;
   border-radius: 10px;
   background: #ffffff;
+}
+
+.product-page__spec-card:hover {
+  outline: 1px solid #ff7a00;
 }
 
 .product-page__spec-top {

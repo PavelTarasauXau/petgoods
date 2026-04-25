@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext.jsx";
 import "./CartPage.css";
+import labelIcon from "../../assets/label.png";
+import clockIcon from "../../assets/clock.png";
+import locationIcon from "../../assets/location.png";
 
 const TAX_RATE = 0.08;
 const FREE_SHIPPING_MIN = 50;
@@ -14,26 +17,21 @@ function CartPage() {
   const [promoError, setPromoError] = useState(null);
 
   const itemCount = lines.reduce((n, line) => n + line.quantity, 0);
-  const discount = promoApplied ? subtotal * 0.1 : 0;
-  const afterDiscount = Math.max(0, subtotal - discount);
-  const tax = afterDiscount * TAX_RATE;
-  const orderTotal = afterDiscount + tax;
+  const tax = subtotal * TAX_RATE;
+  const beforeDiscount = subtotal + tax;
+  const discount = promoApplied ? beforeDiscount * 0.1 : 0;
+  const orderTotal = beforeDiscount - discount;
   const qualifiesFreeShipping = subtotal >= FREE_SHIPPING_MIN;
 
   function handlePromoApply(event) {
     event.preventDefault();
     const code = promoInput.trim();
-
-    if (code === "") {
-      return;
-    }
-
+    if (code === "") return;
     if (code === VALID_PROMO) {
       setPromoApplied(true);
       setPromoError(null);
       return;
     }
-
     setPromoError("Неверный промокод");
   }
 
@@ -66,10 +64,10 @@ function CartPage() {
           <div>
             <h1 className="cart-page__title">Shopping Bag</h1>
             <p className="cart-page__subtitle">
-              {itemCount} {itemCount === 1 ? "item" : "items"} ready for checkout
+              {itemCount} {itemCount === 1 ? "item" : "items"} ready for
+              checkout
             </p>
           </div>
-
           <ol className="cart-page__steps" aria-label="Checkout progress">
             <li className="cart-page__step cart-page__step--active">
               <span className="cart-page__step-dot" /> Cart
@@ -84,9 +82,7 @@ function CartPage() {
         </header>
 
         <div
-          className={`cart-page__shipping-banner ${
-            qualifiesFreeShipping ? "cart-page__shipping-banner--ok" : ""
-          }`}
+          className={`cart-page__shipping-banner ${qualifiesFreeShipping ? "cart-page__shipping-banner--ok" : ""}`}
         >
           <span>Free shipping on orders over ${FREE_SHIPPING_MIN}</span>
           {qualifiesFreeShipping ? (
@@ -106,15 +102,10 @@ function CartPage() {
               const lineTotal = line.price * line.quantity;
               return (
                 <li key={line.lineId} className="cart-line">
-                  <img
-                    src={line.image}
-                    alt=""
-                    className="cart-line__thumb"
-                  />
+                  <img src={line.image} alt="" className="cart-line__thumb" />
                   <div className="cart-line__main">
                     <h2 className="cart-line__title">{line.title}</h2>
                     <p className="cart-line__category">{line.category}</p>
-
                     <div className="cart-line__row">
                       <div className="cart-line__qty">
                         <button
@@ -137,7 +128,6 @@ function CartPage() {
                           +
                         </button>
                       </div>
-
                       <div className="cart-line__prices">
                         <span className="cart-line__line-total">
                           ${lineTotal.toFixed(2)}
@@ -148,7 +138,6 @@ function CartPage() {
                       </div>
                     </div>
                   </div>
-
                   <button
                     type="button"
                     className="cart-line__remove"
@@ -165,6 +154,17 @@ function CartPage() {
           <aside className="cart-summary">
             <div className="cart-summary__head">
               <h2 className="cart-summary__head-title">Order Summary</h2>
+              <p className="cart-summary__head-sub">
+                {itemCount} items in your bag
+              </p>
+            </div>
+
+            {/* Promo */}
+            <div className="cart-summary__promo-label">
+              <span className="cart-summary__promo-label-icon">
+                <img src={labelIcon} alt="" />
+              </span>
+              <span>Promo Code</span>
             </div>
 
             <form className="cart-summary__promo" onSubmit={handlePromoApply}>
@@ -185,18 +185,29 @@ function CartPage() {
               </button>
             </form>
             {promoError && (
-              <p id="promo-error" className="cart-summary__promo-error" role="alert">
+              <p
+                id="promo-error"
+                className="cart-summary__promo-error"
+                role="alert"
+              >
                 {promoError}
               </p>
             )}
             {promoApplied && (
-              <p className="cart-summary__promo-ok">Promo SAVE10 applied (10% off)</p>
+              <p className="cart-summary__promo-ok">
+                Promo SAVE10 applied (10% off)
+              </p>
             )}
 
+            {/* Rows */}
             <dl className="cart-summary__rows">
               <div className="cart-summary__row">
                 <dt>Subtotal</dt>
                 <dd>${subtotal.toFixed(2)}</dd>
+              </div>
+              <div className="cart-summary__row">
+                <dt>Tax (8%)</dt>
+                <dd>${tax.toFixed(2)}</dd>
               </div>
               {promoApplied && (
                 <div className="cart-summary__row cart-summary__row--muted">
@@ -204,35 +215,39 @@ function CartPage() {
                   <dd>−${discount.toFixed(2)}</dd>
                 </div>
               )}
-              <div className="cart-summary__row">
-                <dt>Tax (8%)</dt>
-                <dd>${tax.toFixed(2)}</dd>
-              </div>
               <div className="cart-summary__row cart-summary__row--total">
                 <dt>Total</dt>
                 <dd>${orderTotal.toFixed(2)}</dd>
               </div>
             </dl>
 
+            {/* Meta cards */}
             <div className="cart-summary__meta">
-              <p className="cart-summary__meta-line">
-                <span className="cart-summary__meta-icon" aria-hidden="true">
-                  🕐
+              <div className="cart-summary__meta-card">
+                <span className="cart-summary__meta-icon cart-summary__meta-icon--blue">
+                  <img src={clockIcon} alt="" />
                 </span>
-                Delivery: 3–5 business days
-              </p>
-              <p className="cart-summary__meta-line">
-                <span className="cart-summary__meta-icon" aria-hidden="true">
-                  📍
+                <div>
+                  <p className="cart-summary__meta-title">Delivery Time</p>
+                  <p className="cart-summary__meta-value">3–5 business days</p>
+                </div>
+              </div>
+              <div className="cart-summary__meta-card">
+                <span className="cart-summary__meta-icon cart-summary__meta-icon--purple">
+                  <img src={locationIcon} alt="" />
                 </span>
-                Shipping address at checkout
-              </p>
+                <div>
+                  <p className="cart-summary__meta-title">Shipping To</p>
+                  <p className="cart-summary__meta-value">
+                    123 Main Street, NY 10001
+                  </p>
+                </div>
+              </div>
             </div>
 
             <button type="button" className="cart-summary__checkout">
               Proceed to Checkout
             </button>
-
             <Link to="/" className="cart-summary__continue">
               ← Continue Shopping
             </Link>
