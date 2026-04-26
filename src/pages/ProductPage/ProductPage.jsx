@@ -152,34 +152,36 @@ function ProductPage() {
 
             {product.specs && product.specs.length > 0 && (
               <section className="product-page__specs">
-                <div className="product-page__specs-header">
-                  <span className="product-page__specs-icon">
-                    <img
-                      src={boxIcon}
-                      alt=""
-                      className="product-card__cart-icon"
-                    />
-                  </span>
-                  <h2 className="product-page__specs-title">
-                    Technical Specifications
-                  </h2>
-                </div>
+                <details className="product-page__specs-accordion">
+                  <summary className="product-page__specs-header">
+                    <span className="product-page__specs-icon">
+                      <img
+                        src={boxIcon}
+                        alt=""
+                        className="product-card__cart-icon"
+                      />
+                    </span>
+                    <h2 className="product-page__specs-title">
+                      Technical Specifications
+                    </h2>
+                  </summary>
 
-                <div className="product-page__specs-grid">
-                  {product.specs.map((spec, index) => (
-                    <div key={index} className="product-page__spec-card">
-                      <div className="product-page__spec-top">
-                        <span className="product-page__spec-dot">◉</span>
-                        <span className="product-page__spec-label">
-                          {spec.label}
+                  <div className="product-page__specs-grid">
+                    {product.specs.map((spec, index) => (
+                      <div key={index} className="product-page__spec-card">
+                        <div className="product-page__spec-top">
+                          <span className="product-page__spec-dot">◉</span>
+                          <span className="product-page__spec-label">
+                            {spec.label}
+                          </span>
+                        </div>
+                        <span className="product-page__spec-value">
+                          {spec.value}
                         </span>
                       </div>
-                      <span className="product-page__spec-value">
-                        {spec.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </details>
               </section>
             )}
           </div>

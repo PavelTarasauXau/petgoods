@@ -257,11 +257,19 @@
   }
 
   .footer__form {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 360px;
+  }
+
+  .footer__input {
+    flex: 1;
+    min-width: 0;
   }
 
   .footer__submit {
-    width: 100%;
+    width: 56px;
+    flex-shrink: 0;
   }
 }
