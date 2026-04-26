@@ -41,8 +41,8 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
-  filter: brightness(0) invert(1); /* делает белой */
-  transform: rotate(45deg); /* поворот */
+  filter: brightness(0) invert(1);
+  transform: rotate(45deg);
 }
 
 .header__logo-text {
@@ -52,7 +52,6 @@
   letter-spacing: -0.02em;
 }
 
-/* ─── Nav (десктоп) ──────────────────────────────────────────── */
 .header__nav {
   display: flex;
   align-items: center;
@@ -76,7 +75,6 @@
   color: #ff7a00;
 }
 
-/* ─── Actions ────────────────────────────────────────────────── */
 .header__actions {
   display: flex;
   align-items: center;
@@ -155,7 +153,6 @@
   text-align: center;
 }
 
-/* ─── Бургер (скрыт на десктопе) ────────────────────────────── */
 .header__burger {
   display: none;
   flex-direction: column;
@@ -184,25 +181,19 @@
   transform-origin: center;
 }
 
-/* ─── Мобильное меню (скрыто по умолчанию) ──────────────────── */
 .header__mobile-nav {
   display: none;
 }
 
-/* ─── Responsive ─────────────────────────────────────────────── */
-
 @media (max-width: 1024px) {
-  /* Скрываем десктопный nav */
   .header__nav {
     display: none;
   }
 
-  /* Показываем бургер */
   .header__burger {
     display: flex;
   }
 
-  /* Мобильное меню — на всю ширину, в потоке */
   .header__mobile-nav {
     display: none;
     flex-direction: column;

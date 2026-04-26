@@ -6,6 +6,7 @@ import labelIcon from "../../assets/label.png";
 import clockIcon from "../../assets/clock.png";
 import locationIcon from "../../assets/location.png";
 import binIcon from "../../assets/bin.png";
+import bagIcon from "../../assets/bag.png";
 
 const TAX_RATE = 0.08;
 const FREE_SHIPPING_MIN = 50;
@@ -41,7 +42,7 @@ function CartPage() {
       <div className="cart-page cart-page--empty">
         <div className="container cart-page__empty-inner">
           <div className="cart-page__empty-icon" aria-hidden="true">
-            🛍
+            <img src={bagIcon} alt="" />
           </div>
           <h1 className="cart-page__empty-title">Your cart is empty</h1>
           <p className="cart-page__empty-text">

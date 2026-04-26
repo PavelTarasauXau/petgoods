@@ -68,7 +68,7 @@ function ShopPage() {
       <Hero />
       <section className="shop">
         <div className="container shop__container">
-          {/* Десктоп: сайдбар слева */}
+          {}
           <FiltersSidebar
             ratingFilters={ratingFilters}
             onRatingChange={handleRatingChange}
@@ -88,7 +88,7 @@ function ShopPage() {
               onFiltersToggle={() => setFiltersOpen((prev) => !prev)}
               filtersOpen={filtersOpen}
             />
-            {/* Мобилка: фильтры под тулбаром */}
+            {}
             <div className="shop__mobile-filters">
               <FiltersSidebar
                 ratingFilters={ratingFilters}
