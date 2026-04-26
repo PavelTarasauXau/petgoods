@@ -6,86 +6,42 @@ import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 import { products } from "../../components/data/products";
 import "./ShopPage.css";
 
-// Начальное состояние чекбоксов рейтинга (ничего не выбрано = показываем все товары)
-const initialRatingFilters = {
-  gte5: false,
-  gte4: false,
-  gte3: false,
-};
+const initialRatingFilters = { gte5: false, gte4: false, gte3: false };
 
-/**
- * Оставляем товары, чей рейтинг подходит хотя бы одному включённому фильтру.
- * Если ни один чекбокс не нажат — возвращаем список как есть.
- */
 function filterByRating(allProducts, ratingFilters) {
-  const want5OrMore = ratingFilters.gte5;
-  const want4OrMore = ratingFilters.gte4;
-  const want3OrMore = ratingFilters.gte3;
-
-  const noRatingFilter =
-    !want5OrMore && !want4OrMore && !want3OrMore;
-
-  if (noRatingFilter) {
-    return allProducts;
-  }
-
-  return allProducts.filter((product) => {
-    const matches5Plus = want5OrMore && product.rating >= 5;
-    const matches4Plus = want4OrMore && product.rating >= 4;
-    const matches3Plus = want3OrMore && product.rating >= 3;
-    return matches5Plus || matches4Plus || matches3Plus;
-  });
-}
-
-/**
- * Оставляем товары с ценой в диапазоне [min, max].
- * Если пользователь ввёл min больше max, границы меняются местами.
- */
-function filterByPrice(allProducts, minPrice, maxPrice) {
-  const rangeStart = Math.min(minPrice, maxPrice);
-  const rangeEnd = Math.max(minPrice, maxPrice);
-
+  const { gte5, gte4, gte3 } = ratingFilters;
+  if (!gte5 && !gte4 && !gte3) return allProducts;
   return allProducts.filter(
-    (product) => product.price >= rangeStart && product.price <= rangeEnd
+    (p) =>
+      (gte5 && p.rating >= 5) ||
+      (gte4 && p.rating >= 4) ||
+      (gte3 && p.rating >= 3),
   );
 }
 
-/**
- * Сортировка копии массива (исходный массив products не меняем).
- * sortOption — значение из <select> на тулбаре.
- */
+function filterByPrice(allProducts, minPrice, maxPrice) {
+  const start = Math.min(minPrice, maxPrice);
+  const end = Math.max(minPrice, maxPrice);
+  return allProducts.filter((p) => p.price >= start && p.price <= end);
+}
+
 function sortProducts(allProducts, sortOption) {
   const result = [...allProducts];
-
-  if (sortOption === "name-asc") {
-    result.sort((a, b) =>
-      a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+  if (sortOption === "name-asc")
+    return result.sort((a, b) =>
+      a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
     );
-    return result;
-  }
-
-  if (sortOption === "name-desc") {
-    result.sort((a, b) =>
-      b.title.localeCompare(a.title, undefined, { sensitivity: "base" })
+  if (sortOption === "name-desc")
+    return result.sort((a, b) =>
+      b.title.localeCompare(a.title, undefined, { sensitivity: "base" }),
     );
-    return result;
-  }
-
-  if (sortOption === "price-asc") {
-    result.sort((a, b) => a.price - b.price);
-    return result;
-  }
-
-  if (sortOption === "price-desc") {
-    result.sort((a, b) => b.price - a.price);
-    return result;
-  }
-
-  // На случай неизвестного значения — как "по имени А-Я"
-  result.sort((a, b) =>
-    a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+  if (sortOption === "price-asc")
+    return result.sort((a, b) => a.price - b.price);
+  if (sortOption === "price-desc")
+    return result.sort((a, b) => b.price - a.price);
+  return result.sort((a, b) =>
+    a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
   );
-  return result;
 }
 
 function ShopPage() {
@@ -93,32 +49,26 @@ function ShopPage() {
   const [priceMin, setPriceMin] = useState(0);
   const [priceMax, setPriceMax] = useState(100);
   const [sortBy, setSortBy] = useState("name-asc");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
-  // Считаем список для сетки: фильтры → сортировка.
-  // useMemo нужен, чтобы не пересчитывать на каждый рендер без смены фильтров/сортировки.
   const productsToShow = useMemo(() => {
     let list = products;
-
     list = filterByRating(list, ratingFilters);
     list = filterByPrice(list, priceMin, priceMax);
     list = sortProducts(list, sortBy);
-
     return list;
   }, [ratingFilters, priceMin, priceMax, sortBy]);
 
   function handleRatingChange(filterKey, isChecked) {
-    setRatingFilters((previous) => ({
-      ...previous,
-      [filterKey]: isChecked,
-    }));
+    setRatingFilters((prev) => ({ ...prev, [filterKey]: isChecked }));
   }
 
   return (
     <>
       <Hero />
-
       <section className="shop">
         <div className="container shop__container">
+          {/* Десктоп: сайдбар слева */}
           <FiltersSidebar
             ratingFilters={ratingFilters}
             onRatingChange={handleRatingChange}
@@ -126,6 +76,8 @@ function ShopPage() {
             priceMax={priceMax}
             onPriceMinChange={setPriceMin}
             onPriceMaxChange={setPriceMax}
+            isOpen={filtersOpen}
+            onClose={() => setFiltersOpen(false)}
           />
 
           <div className="shop__content">
@@ -133,7 +85,22 @@ function ShopPage() {
               productsCount={productsToShow.length}
               sortBy={sortBy}
               onSortChange={setSortBy}
+              onFiltersToggle={() => setFiltersOpen((prev) => !prev)}
+              filtersOpen={filtersOpen}
             />
+            {/* Мобилка: фильтры под тулбаром */}
+            <div className="shop__mobile-filters">
+              <FiltersSidebar
+                ratingFilters={ratingFilters}
+                onRatingChange={handleRatingChange}
+                priceMin={priceMin}
+                priceMax={priceMax}
+                onPriceMinChange={setPriceMin}
+                onPriceMaxChange={setPriceMax}
+                isOpen={filtersOpen}
+                onClose={() => setFiltersOpen(false)}
+              />
+            </div>
             <ProductsGrid products={productsToShow} />
           </div>
         </div>

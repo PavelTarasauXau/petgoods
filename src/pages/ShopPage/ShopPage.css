@@ -13,3 +13,47 @@
 .shop__content {
   min-width: 0;
 }
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Мобильный блок фильтров — скрыт на десктопе */
+.shop__mobile-filters {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .shop__container {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Скрываем десктопный сайдбар */
+  .shop__container > .filters {
+    display: none;
+  }
+
+  /* Показываем мобильный блок */
+  .shop__mobile-filters {
+    display: block;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .shop {
+    padding: 20px 0 48px;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

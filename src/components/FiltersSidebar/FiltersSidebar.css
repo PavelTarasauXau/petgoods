@@ -6,15 +6,37 @@
   min-width: 0;
 }
 
-.filters__group + .filters__group {
-  margin-top: 34px;
+.filters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .filters__title {
-  margin: 0 0 30px;
+  margin: 0;
   font-size: 20px;
   font-weight: 700;
   color: #14213d;
+}
+
+.filters__close {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #7b869e;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+.filters__close:hover {
+  color: #14213d;
+}
+
+.filters__group + .filters__group {
+  margin-top: 34px;
 }
 
 .filters__subtitle {
@@ -54,15 +76,12 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   gap: 8px;
   align-items: center;
-  width: 100%;
-  max-width: 100%;
 }
 
 .filters__dash {
   text-align: center;
   color: #6d7890;
   padding: 0 2px;
-  min-width: 1ch;
 }
 
 .filters__price-input {
@@ -80,4 +99,25 @@
 
 .filters__price-input:focus {
   border-color: #ff7a00;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  /* Показываем крестик */
+  .filters__close {
+    display: block;
+  }
+
+  /* Фильтры скрыты по умолчанию */
+  .filters {
+    display: none;
+    border-radius: 18px;
+    margin-bottom: 16px;
+  }
+
+  /* Показываем когда открыты */
+  .filters--open {
+    display: block;
+  }
 }

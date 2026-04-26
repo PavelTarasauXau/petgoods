@@ -1,6 +1,5 @@
 import "./FiltersSidebar.css";
 
-// Значения по умолчанию для полей цены, если пользователь очистил input
 const DEFAULT_MIN_PRICE = 0;
 const DEFAULT_MAX_PRICE = 100;
 
@@ -11,44 +10,47 @@ function FiltersSidebar({
   priceMax,
   onPriceMinChange,
   onPriceMaxChange,
+  isOpen,
+  onClose,
 }) {
   const { gte5, gte4, gte3 } = ratingFilters;
 
-  function handleMinPriceChange(event) {
-    const text = event.target.value;
-
+  function handleMinPriceChange(e) {
+    const text = e.target.value;
     if (text === "") {
       onPriceMinChange(DEFAULT_MIN_PRICE);
       return;
     }
-
-    const number = Number(text);
-    if (!Number.isNaN(number)) {
-      onPriceMinChange(number);
-    }
+    const n = Number(text);
+    if (!Number.isNaN(n)) onPriceMinChange(n);
   }
 
-  function handleMaxPriceChange(event) {
-    const text = event.target.value;
-
+  function handleMaxPriceChange(e) {
+    const text = e.target.value;
     if (text === "") {
       onPriceMaxChange(DEFAULT_MAX_PRICE);
       return;
     }
-
-    const number = Number(text);
-    if (!Number.isNaN(number)) {
-      onPriceMaxChange(number);
-    }
+    const n = Number(text);
+    if (!Number.isNaN(n)) onPriceMaxChange(n);
   }
 
   return (
-    <aside className="filters">
-      <h2 className="filters__title">Filters</h2>
+    <aside className={`filters${isOpen ? " filters--open" : ""}`}>
+      <div className="filters__header">
+        <h2 className="filters__title">Filters</h2>
+        <button
+          type="button"
+          className="filters__close"
+          onClick={onClose}
+          aria-label="Close filters"
+        >
+          ✕
+        </button>
+      </div>
 
       <div className="filters__group">
         <h3 className="filters__subtitle">Rating</h3>
-
         <label className="filters__checkbox">
           <input
             type="checkbox"
@@ -57,7 +59,6 @@ function FiltersSidebar({
           />
           <span>5+ Stars</span>
         </label>
-
         <label className="filters__checkbox">
           <input
             type="checkbox"
@@ -66,7 +67,6 @@ function FiltersSidebar({
           />
           <span>4+ Stars</span>
         </label>
-
         <label className="filters__checkbox">
           <input
             type="checkbox"
@@ -79,12 +79,10 @@ function FiltersSidebar({
 
       <div className="filters__group">
         <h3 className="filters__subtitle">Price Range</h3>
-
         <div className="filters__price-labels">
           <span>Min</span>
           <span>Max</span>
         </div>
-
         <div className="filters__price-row">
           <input
             type="number"

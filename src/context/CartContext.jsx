@@ -74,26 +74,43 @@ export function CartProvider({ children }) {
   }, []);
 
   const addLine = useCallback(
-    (product) => {
+    (product, amount = 1) => {
+      const quantityToAdd = Math.max(1, Number(amount) || 1);
+
       const imageSrc =
         typeof product.image === "string"
           ? product.image
           : String(product.image);
 
-      const line = {
-        lineId: newLineId(),
-        productId: product.id,
-        title: product.title,
-        price: product.price,
-        image: imageSrc,
-        category: product.category ?? "General",
-        quantity: 1,
-      };
+      setLines((previous) => {
+        const existingLine = previous.find(
+          (line) => String(line.productId) === String(product.id),
+        );
 
-      setLines((previous) => [...previous, line]);
+        if (existingLine) {
+          return previous.map((line) =>
+            String(line.productId) === String(product.id)
+              ? { ...line, quantity: line.quantity + quantityToAdd }
+              : line,
+          );
+        }
+
+        const line = {
+          lineId: newLineId(),
+          productId: product.id,
+          title: product.title,
+          price: product.price,
+          image: imageSrc,
+          category: product.category ?? "General",
+          quantity: quantityToAdd,
+        };
+
+        return [...previous, line];
+      });
+
       showToast(`${product.title} added to cart!`);
     },
-    [showToast]
+    [showToast],
   );
 
   const increment = useCallback((lineId) => {
@@ -101,8 +118,8 @@ export function CartProvider({ children }) {
       previous.map((line) =>
         line.lineId === lineId
           ? { ...line, quantity: line.quantity + 1 }
-          : line
-      )
+          : line,
+      ),
     );
   }, []);
 
@@ -112,7 +129,7 @@ export function CartProvider({ children }) {
         if (line.lineId !== lineId) return [line];
         if (line.quantity <= 1) return [];
         return [{ ...line, quantity: line.quantity - 1 }];
-      })
+      }),
     );
   }, []);
 
@@ -122,12 +139,12 @@ export function CartProvider({ children }) {
 
   const totalItemCount = useMemo(
     () => lines.reduce((sum, line) => sum + line.quantity, 0),
-    [lines]
+    [lines],
   );
 
   const subtotal = useMemo(
     () => lines.reduce((sum, line) => sum + line.price * line.quantity, 0),
-    [lines]
+    [lines],
   );
 
   const value = useMemo(
@@ -154,7 +171,7 @@ export function CartProvider({ children }) {
       toastMessage,
       isToastVisible,
       hideToast,
-    ]
+    ],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

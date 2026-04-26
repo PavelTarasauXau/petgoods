@@ -46,18 +46,20 @@
   width: 20px;
   height: 20px;
   object-fit: contain;
+  filter: brightness(0) invert(1); /* делает белой */
+  transform: rotate(45deg); /* поворот */
 }
 
 .footer__logo-text {
   font-size: 22px;
-  font-weight: 500; /* было 600, чуть легче */
+  font-weight: 500;
   line-height: 1;
 }
 
 .footer__description {
   margin: 0;
   color: #c3cee0;
-  font-size: 15px; /* немного меньше */
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.55;
 }
@@ -65,8 +67,8 @@
 /* ─── Links block ────────────────────────────────────────────── */
 .footer__title {
   margin: 6px 0 26px;
-  font-size: 16px; /* было 18px */
-  font-weight: 600; /* было 700 */
+  font-size: 16px;
+  font-weight: 600;
   color: #ffffff;
 }
 
@@ -78,7 +80,7 @@
 
 .footer__links a {
   text-decoration: none;
-  color: #c3cee0; /* было белый, чуть приглушённее */
+  color: #c3cee0;
   font-size: 15px;
   font-weight: 400;
   transition: color 0.2s ease;
@@ -134,7 +136,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .footer__submit img {
@@ -253,11 +257,19 @@
   }
 
   .footer__form {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 360px;
+  }
+
+  .footer__input {
+    flex: 1;
+    min-width: 0;
   }
 
   .footer__submit {
-    width: 100%;
+    width: 56px;
+    flex-shrink: 0;
   }
 }

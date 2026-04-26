@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext.jsx";
 import "./ProductCard.css";
+import cartIcon from "../../assets/cart.png";
 
 function ProductCard({ product }) {
   const { addLine } = useCart();
@@ -50,7 +51,11 @@ function ProductCard({ product }) {
                 onClick={handleAddToCartClick}
                 aria-label={`Add ${title} to cart`}
               >
-                🛒
+                <img
+                  src={cartIcon}
+                  alt=""
+                  className="product-card__cart-icon"
+                />
               </button>
             </div>
           </div>
