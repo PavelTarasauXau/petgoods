@@ -453,6 +453,10 @@
     padding: 20px 0 40px;
   }
 
+  .page--product {
+    padding-top: 0;
+  }
+
   .product-page__topbar {
     height: auto;
     min-height: 54px;
