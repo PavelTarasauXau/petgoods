@@ -20,14 +20,10 @@
   display: block;
 }
 
-/*  Slide-in animations  */
-
-/* Next → image enters from the right */
 .product-gallery__image--slide-left {
   animation: gallery-slide-in-left 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-/* Prev ← image enters from the left */
 .product-gallery__image--slide-right {
   animation: gallery-slide-in-right 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
@@ -54,7 +50,6 @@
   }
 }
 
-/*  Arrows  */
 .product-gallery__controls {
   position: absolute;
   inset: 0;
@@ -77,7 +72,9 @@
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(20, 33, 61, 0.12);
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .product-gallery__arrow:hover {
@@ -102,7 +99,9 @@
   border-radius: 50%;
   background: #d9dee7;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .product-gallery__dot--active {

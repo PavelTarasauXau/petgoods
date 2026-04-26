@@ -22,8 +22,6 @@ export const products = [
       "Dimensions: 18 x 11 x 11 inches",
       "Material: Polyester with Mesh Panels",
       "Weight limit: Up to 15 lbs",
-      //"AIRLINE APPROVED: Yes (TSA Compilant)",
-      //"FEATURES: Collapsible, Padded Strap",
     ],
     specs: [
       { label: "Dimensions", value: "18 x 11 x 11 inches" },

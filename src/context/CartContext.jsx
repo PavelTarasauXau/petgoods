@@ -12,7 +12,6 @@ const STORAGE_KEY = "pawsstore-cart-v1";
 
 const CartContext = createContext(null);
 
-/** Уникальный id строки в корзине (один товар можно добавить несколько раз — разные строки). */
 function newLineId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 }
@@ -38,9 +37,7 @@ export function CartProvider({ children }) {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
-    } catch {
-      // память или режим инкогнито — просто не сохраняем
-    }
+    } catch {}
   }, [lines]);
 
   useEffect(() => {

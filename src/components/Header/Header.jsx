@@ -20,7 +20,7 @@ function Header() {
 
   return (
     <header className="header">
-      {/* Верхняя строка: лого слева, actions справа */}
+      {}
       <div className="header__container">
         <Link to="/" className="header__logo" onClick={closeMenu}>
           <span className="header__logo-circle">
@@ -33,7 +33,6 @@ function Header() {
           <span className="header__logo-text">PawsStore</span>
         </Link>
 
-        {/* Десктопный nav — посередине */}
         <nav className="header__nav">
           <Link to="/">Shop</Link>
           <Link to="/categories">Categories</Link>
@@ -41,7 +40,6 @@ function Header() {
           <Link to="/about">About</Link>
         </nav>
 
-        {/* Actions всегда справа */}
         <div className="header__actions">
           <button
             className="header__icon-btn"
@@ -78,7 +76,6 @@ function Header() {
         </div>
       </div>
 
-      {/* Мобильное меню — вне контейнера, на всю ширину, сдвигает контент */}
       <nav
         className={`header__mobile-nav${menuOpen ? " header__mobile-nav--open" : ""}`}
       >

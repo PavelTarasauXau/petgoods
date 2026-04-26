@@ -22,6 +22,12 @@ function ProductPage() {
     return buildGalleryImages(product.image);
   }, [product]);
 
+  const relatedProducts = product
+    ? products.filter(
+        (item) => item.id !== product.id && item.category === product.category,
+      )
+    : [];
+
   if (!product) {
     return (
       <div className="page page--product">
@@ -186,6 +192,39 @@ function ProductPage() {
             )}
           </div>
         </div>
+
+        {relatedProducts.length > 0 && (
+          <section className="product-page__related">
+            <h2 className="product-page__related-title">Related Products</h2>
+
+            <div className="product-page__related-grid">
+              {relatedProducts.map((relatedProduct) => (
+                <Link
+                  key={relatedProduct.id}
+                  to={`/product/${relatedProduct.id}`}
+                  className="product-page__related-card"
+                >
+                  <div className="product-page__related-image-wrap">
+                    <img
+                      src={relatedProduct.image}
+                      alt={relatedProduct.title}
+                      className="product-page__related-image"
+                    />
+                  </div>
+
+                  <div className="product-page__related-body">
+                    <h3 className="product-page__related-name">
+                      {relatedProduct.title}
+                    </h3>
+                    <p className="product-page__related-price">
+                      ${relatedProduct.price.toFixed(2)}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
