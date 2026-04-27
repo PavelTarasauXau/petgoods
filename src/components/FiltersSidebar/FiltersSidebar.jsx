@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./FiltersSidebar.css";
 
 const DEFAULT_MIN_PRICE = 0;
@@ -15,24 +16,38 @@ function FiltersSidebar({
 }) {
   const { gte5, gte4, gte3 } = ratingFilters;
 
-  function handleMinPriceChange(e) {
+  // Локальный текст полей — отдельно от реального значения фильтра
+  const [minText, setMinText] = useState(String(priceMin));
+  const [maxText, setMaxText] = useState(String(priceMax));
+
+  function handleMinChange(e) {
     const text = e.target.value;
+    setMinText(text);
     if (text === "") {
-      onPriceMinChange(DEFAULT_MIN_PRICE);
+      onPriceMinChange(0);
       return;
     }
     const n = Number(text);
     if (!Number.isNaN(n)) onPriceMinChange(n);
   }
 
-  function handleMaxPriceChange(e) {
+  function handleMaxChange(e) {
     const text = e.target.value;
+    setMaxText(text);
     if (text === "") {
-      onPriceMaxChange(DEFAULT_MAX_PRICE);
+      onPriceMaxChange(9999); // показываем все товары когда поле пустое
       return;
     }
     const n = Number(text);
     if (!Number.isNaN(n)) onPriceMaxChange(n);
+  }
+
+  function handleMinBlur() {
+    if (minText === "") setMinText("0");
+  }
+
+  function handleMaxBlur() {
+    if (maxText === "") setMaxText("100");
   }
 
   return (
@@ -87,21 +102,23 @@ function FiltersSidebar({
           <input
             type="number"
             min={0}
-            step={0.01}
+            step={1}
             inputMode="decimal"
             className="filters__price-input"
-            value={priceMin}
-            onChange={handleMinPriceChange}
+            value={minText}
+            onChange={handleMinChange}
+            onBlur={handleMinBlur}
           />
           <span className="filters__dash">-</span>
           <input
             type="number"
             min={0}
-            step={0.01}
+            step={1}
             inputMode="decimal"
             className="filters__price-input"
-            value={priceMax}
-            onChange={handleMaxPriceChange}
+            value={maxText}
+            onChange={handleMaxChange}
+            onBlur={handleMaxBlur}
           />
         </div>
       </div>

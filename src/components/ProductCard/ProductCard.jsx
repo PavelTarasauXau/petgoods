@@ -13,51 +13,52 @@ function ProductCard({ product }) {
       ? Math.round(reviews)
       : reviews;
 
-  function handleAddToCartClick(event) {
-    event.stopPropagation();
+  function handleAddToCartClick() {
     addLine(product);
   }
 
   return (
     <div className="product-card">
-      <Link to={`/product/${id}`} className="product-card__image-link">
-        <div className="product-card__image-wrapper">
+      <div className="product-card__image-wrapper">
+        {/* Link только на картинку и бейдж */}
+        <Link to={`/product/${id}`} className="product-card__image-link">
           <img src={image} alt={title} className="product-card__image" />
           <div className="product-card__price-badge">${price.toFixed(2)}</div>
+        </Link>
 
-          <div className="product-card__overlay" aria-hidden="true">
-            <div className="product-card__overlay-box">
-              <h3 className="product-card__overlay-title">{title}</h3>
-              <div className="product-card__overlay-rating">
-                <span className="product-card__stars product-card__stars--filled">
-                  {fullStars}
-                </span>
-                <span className="product-card__stars product-card__stars--empty">
-                  {emptyStars}
-                </span>
-                <span className="product-card__reviews">({reviewCount})</span>
-              </div>
-              <div className="product-card__overlay-footer">
-                <span className="product-card__overlay-price">
-                  ${price.toFixed(2)}
-                </span>
-                <button
-                  type="button"
-                  className="product-card__cart-btn"
-                  onClick={handleAddToCartClick}
-                  aria-label={`Add ${title} to cart`}
-                >
-                  <img
-                    src={cartIcon}
-                    alt=""
-                    className="product-card__cart-icon"
-                  />
-                </button>
-              </div>
+        {/* Оверлей с кнопкой — вне Link */}
+        <div className="product-card__overlay" aria-hidden="true">
+          <div className="product-card__overlay-box">
+            <h3 className="product-card__overlay-title">{title}</h3>
+            <div className="product-card__overlay-rating">
+              <span className="product-card__stars product-card__stars--filled">
+                {fullStars}
+              </span>
+              <span className="product-card__stars product-card__stars--empty">
+                {emptyStars}
+              </span>
+              <span className="product-card__reviews">({reviewCount})</span>
+            </div>
+            <div className="product-card__overlay-footer">
+              <span className="product-card__overlay-price">
+                ${price.toFixed(2)}
+              </span>
+              <button
+                type="button"
+                className="product-card__cart-btn"
+                onClick={handleAddToCartClick}
+                aria-label={`Add ${title} to cart`}
+              >
+                <img
+                  src={cartIcon}
+                  alt=""
+                  className="product-card__cart-icon"
+                />
+              </button>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
 
       <div className="product-card__body">
         <Link to={`/product/${id}`} className="product-card__title-link">
