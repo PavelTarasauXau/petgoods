@@ -7,8 +7,8 @@ import searchIcon from "../../assets/search.png";
 import cartIcon from "../../assets/cart.png";
 
 function Header() {
-  const { totalItemCount } = useCart();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { totalItemCount } = useCart(); //получаем общее количество товаров в корзине
+  const [menuOpen, setMenuOpen] = useState(false); //открыто ли мобильное меню
 
   function toggleMenu() {
     setMenuOpen((prev) => !prev);

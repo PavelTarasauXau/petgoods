@@ -37,6 +37,11 @@
   transform: scale(1.06);
 }
 
+.product-card__image-link {
+  display: block;
+  text-decoration: none;
+}
+
 .product-card__price-badge {
   position: absolute;
   top: 14px;
@@ -214,6 +219,16 @@
   font-size: 17px;
   font-weight: 400;
   line-height: 1.4;
+}
+
+.product-card__title-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-card__title-link:hover .product-card__title {
+  color: #ff7a00;
 }
 
 .product-card__stars {
