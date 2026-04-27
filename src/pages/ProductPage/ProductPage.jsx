@@ -17,6 +17,8 @@ function ProductPage() {
 
   const [quantity, setQuantity] = useState(1);
 
+  const [specsOpen, setSpecsOpen] = useState(false);
+
   const galleryImages = useMemo(() => {
     if (!product) return [];
     return buildGalleryImages(product.image);
@@ -158,20 +160,32 @@ function ProductPage() {
 
             {product.specs && product.specs.length > 0 && (
               <section className="product-page__specs">
-                <details className="product-page__specs-accordion">
-                  <summary className="product-page__specs-header">
-                    <span className="product-page__specs-icon">
-                      <img
-                        src={boxIcon}
-                        alt=""
-                        className="product-card__cart-icon"
-                      />
-                    </span>
-                    <h2 className="product-page__specs-title">
-                      Technical Specifications
-                    </h2>
-                  </summary>
+                <button
+                  type="button"
+                  className="product-page__specs-header"
+                  onClick={() => setSpecsOpen((prev) => !prev)}
+                  aria-expanded={specsOpen}
+                >
+                  <span className="product-page__specs-icon">
+                    <img
+                      src={boxIcon}
+                      alt=""
+                      className="product-card__cart-icon"
+                    />
+                  </span>
+                  <h2 className="product-page__specs-title">
+                    Technical Specifications
+                  </h2>
+                  <span
+                    className={`product-page__specs-arrow${specsOpen ? " product-page__specs-arrow--open" : ""}`}
+                  >
+                    ▾
+                  </span>
+                </button>
 
+                <div
+                  className={`product-page__specs-body${specsOpen ? " product-page__specs-body--open" : ""}`}
+                >
                   <div className="product-page__specs-grid">
                     {product.specs.map((spec, index) => (
                       <div key={index} className="product-page__spec-card">
@@ -187,7 +201,7 @@ function ProductPage() {
                       </div>
                     ))}
                   </div>
-                </details>
+                </div>
               </section>
             )}
           </div>
