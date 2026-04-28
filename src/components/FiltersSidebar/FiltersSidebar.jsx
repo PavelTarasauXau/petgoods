@@ -16,7 +16,6 @@ function FiltersSidebar({
 }) {
   const { gte5, gte4, gte3 } = ratingFilters;
 
-  // Локальный текст полей — отдельно от реального значения фильтра
   const [minText, setMinText] = useState(String(priceMin));
   const [maxText, setMaxText] = useState(String(priceMax));
 
@@ -35,7 +34,7 @@ function FiltersSidebar({
     const text = e.target.value;
     setMaxText(text);
     if (text === "") {
-      onPriceMaxChange(9999); // показываем все товары когда поле пустое
+      onPriceMaxChange(9999);
       return;
     }
     const n = Number(text);
