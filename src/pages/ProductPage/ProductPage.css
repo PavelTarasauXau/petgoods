@@ -298,6 +298,7 @@
 
 .product-page__specs-body {
   display: grid;
+  margin-top: 1rem;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
   overflow: hidden;
@@ -343,6 +344,8 @@
 }
 
 .product-page__spec-card {
+  margin: 2px;
+  z-index: 5000;
   cursor: default;
   padding: 12px 14px;
   border-radius: 10px;
@@ -356,6 +359,7 @@
 }
 
 .product-page__spec-card:hover {
+  z-index: 5000;
   outline: 1px solid #ff7a00;
 
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -527,6 +531,10 @@
 
   .product-page__specs-grid {
     grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 4px;
   }
 
   .product-page__qty-row {
