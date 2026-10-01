@@ -1,108 +1,96 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { findProduct } from "../data/products";
+import { CartContext } from "./useCart";
+import { useToast } from "./useToast";
 
 const STORAGE_KEY = "pawsstore-cart-v1";
+const PROMO_STORAGE_KEY = "pawsstore-promo-v1";
 
-const CartContext = createContext(null);
+const PROMO_CODES = {
+  SAVE10: 0.1,
+};
 
-function newLineId() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-}
-
+// В корзине храним только id товара и количество: название, цена и картинка
+// берутся из каталога, поэтому не устаревают после изменения данных или пересборки.
 function loadLinesFromStorage() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const data = JSON.parse(raw);
-    return Array.isArray(data) ? data : [];
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (!Array.isArray(data)) return [];
+
+    const quantities = new Map();
+    for (const line of data) {
+      const product = findProduct(line?.productId);
+      const quantity = Math.floor(Number(line?.quantity));
+      if (!product || !(quantity > 0)) continue;
+      quantities.set(product.id, (quantities.get(product.id) ?? 0) + quantity);
+    }
+
+    return [...quantities].map(([productId, quantity]) => ({
+      productId,
+      quantity,
+    }));
   } catch {
     return [];
   }
 }
 
+function loadPromoFromStorage() {
+  try {
+    const code = localStorage.getItem(PROMO_STORAGE_KEY);
+    return code in PROMO_CODES ? code : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveToStorage(key, value) {
+  try {
+    if (value === null) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, value);
+    }
+  } catch {
+    // localStorage может быть недоступен (например, приватный режим) —
+    // тогда корзина просто не сохранится между перезагрузками.
+  }
+}
+
 export function CartProvider({ children }) {
+  const { showToast } = useToast();
   const [lines, setLines] = useState(loadLinesFromStorage);
+  const [promoCode, setPromoCode] = useState(loadPromoFromStorage);
 
-  const [toastMessage, setToastMessage] = useState("");
-  const [isToastVisible, setIsToastVisible] = useState(false);
-  const toastTimerRef = useRef(null);
-
+  // useEffect используется для синхронизации с внешним миром (запись в localStorage)
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
-    } catch {}
+    saveToStorage(STORAGE_KEY, JSON.stringify(lines));
   }, [lines]);
 
   useEffect(() => {
-    return () => {
-      if (toastTimerRef.current) {
-        clearTimeout(toastTimerRef.current);
-      }
-    };
-  }, []);
+    saveToStorage(PROMO_STORAGE_KEY, promoCode);
+  }, [promoCode]);
 
-  const showToast = useCallback((message) => {
-    setToastMessage(message);
-    setIsToastVisible(true);
-
-    if (toastTimerRef.current) {
-      clearTimeout(toastTimerRef.current);
-    }
-
-    toastTimerRef.current = setTimeout(() => {
-      setIsToastVisible(false);
-    }, 2500);
-  }, []);
-
-  const hideToast = useCallback(() => {
-    setIsToastVisible(false);
-
-    if (toastTimerRef.current) {
-      clearTimeout(toastTimerRef.current);
-      toastTimerRef.current = null;
-    }
-  }, []);
-
-  const addLine = useCallback(
+  // useCallback запоминает саму функцию между рендерами, чтобы её ссылка
+  // не менялась и не вызывала лишних перерисовок у потребителей контекста
+  const addItem = useCallback(
     (product, amount = 1) => {
-      const quantityToAdd = Math.max(1, Number(amount) || 1);
-
-      const imageSrc =
-        typeof product.image === "string"
-          ? product.image
-          : String(product.image);
+      const quantityToAdd = Math.max(1, Math.floor(Number(amount)) || 1);
 
       setLines((previous) => {
-        const existingLine = previous.find(
-          (line) => String(line.productId) === String(product.id),
-        );
+        const exists = previous.some((line) => line.productId === product.id);
 
-        if (existingLine) {
+        if (exists) {
           return previous.map((line) =>
-            String(line.productId) === String(product.id)
+            line.productId === product.id
               ? { ...line, quantity: line.quantity + quantityToAdd }
               : line,
           );
         }
 
-        const line = {
-          lineId: newLineId(),
-          productId: product.id,
-          title: product.title,
-          price: product.price,
-          image: imageSrc,
-          category: product.category ?? "General",
-          quantity: quantityToAdd,
-        };
-
-        return [...previous, line];
+        return [
+          ...previous,
+          { productId: product.id, quantity: quantityToAdd },
+        ];
       });
 
       showToast(`${product.title} added to cart!`);
@@ -110,74 +98,84 @@ export function CartProvider({ children }) {
     [showToast],
   );
 
-  const increment = useCallback((lineId) => {
+  const increment = useCallback((productId) => {
     setLines((previous) =>
       previous.map((line) =>
-        line.lineId === lineId
+        line.productId === productId
           ? { ...line, quantity: line.quantity + 1 }
           : line,
       ),
     );
   }, []);
 
-  const decrement = useCallback((lineId) => {
+  const decrement = useCallback((productId) => {
     setLines((previous) =>
       previous.flatMap((line) => {
-        if (line.lineId !== lineId) return [line];
+        if (line.productId !== productId) return [line];
         if (line.quantity <= 1) return [];
         return [{ ...line, quantity: line.quantity - 1 }];
       }),
     );
   }, []);
 
-  const removeLine = useCallback((lineId) => {
-    setLines((previous) => previous.filter((line) => line.lineId !== lineId));
+  const removeItem = useCallback((productId) => {
+    setLines((previous) =>
+      previous.filter((line) => line.productId !== productId),
+    );
   }, []);
 
-  const totalItemCount = useMemo(
-    () => lines.reduce((sum, line) => sum + line.quantity, 0),
+  const applyPromo = useCallback((code) => {
+    const normalizedCode = code.trim().toUpperCase();
+    if (!(normalizedCode in PROMO_CODES)) return false;
+    setPromoCode(normalizedCode);
+    return true;
+  }, []);
+
+  const items = useMemo(
+    () =>
+      lines.map((line) => ({
+        product: findProduct(line.productId),
+        quantity: line.quantity,
+      })),
     [lines],
   );
 
+  const totalItemCount = useMemo(
+    () => items.reduce((sum, item) => sum + item.quantity, 0),
+    [items],
+  );
+
   const subtotal = useMemo(
-    () => lines.reduce((sum, line) => sum + line.price * line.quantity, 0),
-    [lines],
+    () =>
+      items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+    [items],
   );
 
   const value = useMemo(
     () => ({
-      lines,
-      addLine,
+      items,
+      addItem,
       increment,
       decrement,
-      removeLine,
+      removeItem,
       totalItemCount,
       subtotal,
-      toastMessage,
-      isToastVisible,
-      hideToast,
+      promoCode,
+      promoDiscountRate: promoCode ? PROMO_CODES[promoCode] : 0,
+      applyPromo,
     }),
     [
-      lines,
-      addLine,
+      items,
+      addItem,
       increment,
       decrement,
-      removeLine,
+      removeItem,
       totalItemCount,
       subtotal,
-      toastMessage,
-      isToastVisible,
-      hideToast,
+      promoCode,
+      applyPromo,
     ],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-}
-
-export function useCart() {
-  const ctx = useContext(CartContext);
-  if (!ctx) {
-    throw new Error("useCart must be used inside CartProvider");
-  }
-  return ctx;
 }

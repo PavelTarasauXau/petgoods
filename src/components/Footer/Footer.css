@@ -114,6 +114,12 @@
   outline: none;
 }
 
+.footer__form-note {
+  margin: 10px 0 0;
+  color: #ffb066;
+  font-size: 14px;
+}
+
 .footer__input::placeholder {
   color: #7f8da7;
 }

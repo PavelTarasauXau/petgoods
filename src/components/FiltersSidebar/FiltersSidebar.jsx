@@ -1,53 +1,16 @@
-import { useState } from "react";
 import "./FiltersSidebar.css";
-
-const DEFAULT_MIN_PRICE = 0;
-const DEFAULT_MAX_PRICE = 100;
 
 function FiltersSidebar({
   ratingFilters,
   onRatingChange,
-  priceMin,
-  priceMax,
+  priceMinText,
+  priceMaxText,
   onPriceMinChange,
   onPriceMaxChange,
   isOpen,
   onClose,
 }) {
   const { gte5, gte4, gte3 } = ratingFilters;
-
-  const [minText, setMinText] = useState(String(priceMin));
-  const [maxText, setMaxText] = useState(String(priceMax));
-
-  function handleMinChange(e) {
-    const text = e.target.value;
-    setMinText(text);
-    if (text === "") {
-      onPriceMinChange(0);
-      return;
-    }
-    const n = Number(text);
-    if (!Number.isNaN(n)) onPriceMinChange(n);
-  }
-
-  function handleMaxChange(e) {
-    const text = e.target.value;
-    setMaxText(text);
-    if (text === "") {
-      onPriceMaxChange(9999);
-      return;
-    }
-    const n = Number(text);
-    if (!Number.isNaN(n)) onPriceMaxChange(n);
-  }
-
-  function handleMinBlur() {
-    if (minText === "") setMinText("0");
-  }
-
-  function handleMaxBlur() {
-    if (maxText === "") setMaxText("100");
-  }
 
   return (
     <aside className={`filters${isOpen ? " filters--open" : ""}`}>
@@ -104,9 +67,10 @@ function FiltersSidebar({
             step={1}
             inputMode="decimal"
             className="filters__price-input"
-            value={minText}
-            onChange={handleMinChange}
-            onBlur={handleMinBlur}
+            placeholder="0"
+            aria-label="Minimum price"
+            value={priceMinText}
+            onChange={(e) => onPriceMinChange(e.target.value)}
           />
           <span className="filters__dash">-</span>
           <input
@@ -115,9 +79,10 @@ function FiltersSidebar({
             step={1}
             inputMode="decimal"
             className="filters__price-input"
-            value={maxText}
-            onChange={handleMaxChange}
-            onBlur={handleMaxBlur}
+            placeholder="Any"
+            aria-label="Maximum price"
+            value={priceMaxText}
+            onChange={(e) => onPriceMaxChange(e.target.value)}
           />
         </div>
       </div>

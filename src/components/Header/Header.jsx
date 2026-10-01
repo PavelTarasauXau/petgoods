@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useCart } from "../../context/CartContext.jsx";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/useCart";
 import "./Header.css";
 import pawIcon from "../../assets/paw2.png";
 import searchIcon from "../../assets/search.png";
 import cartIcon from "../../assets/cart.png";
 
+const NAV_LINKS = [
+  { to: "/", label: "Shop", end: true },
+  { to: "/categories", label: "Categories" },
+  { to: "/deals", label: "Deals" },
+  { to: "/about", label: "About" },
+];
+
 function Header() {
   const { totalItemCount } = useCart();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   function toggleMenu() {
     setMenuOpen((prev) => !prev);
@@ -18,9 +28,20 @@ function Header() {
     setMenuOpen(false);
   }
 
+  function toggleSearch() {
+    setSearchOpen((prev) => !prev);
+  }
+
+  function handleSearchSubmit(event) {
+    event.preventDefault();
+    const query = searchText.trim();
+    navigate(query ? `/?q=${encodeURIComponent(query)}` : "/");
+    setSearchOpen(false);
+    closeMenu();
+  }
+
   return (
     <header className="header">
-      {}
       <div className="header__container">
         <Link to="/" className="header__logo" onClick={closeMenu}>
           <span className="header__logo-circle">
@@ -34,17 +55,21 @@ function Header() {
         </Link>
 
         <nav className="header__nav">
-          <Link to="/">Shop</Link>
-          <Link to="/categories">Categories</Link>
-          <Link to="/deals">Deals</Link>
-          <Link to="/about">About</Link>
+          {NAV_LINKS.map((link) => (
+            <NavLink key={link.to} to={link.to} end={link.end}>
+              {link.label}
+            </NavLink>
+          ))}
         </nav>
 
         <div className="header__actions">
           <button
             className="header__icon-btn"
             type="button"
-            aria-label="Search"
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            aria-expanded={searchOpen}
+            aria-controls="header-search"
+            onClick={toggleSearch}
           >
             <img src={searchIcon} alt="" />
           </button>
@@ -76,21 +101,41 @@ function Header() {
         </div>
       </div>
 
+      {searchOpen && (
+        <form
+          id="header-search"
+          className="header__search"
+          role="search"
+          onSubmit={handleSearchSubmit}
+        >
+          <input
+            type="search"
+            className="header__search-input"
+            placeholder="Search products..."
+            aria-label="Search products"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            autoFocus
+          />
+          <button type="submit" className="header__search-btn">
+            Search
+          </button>
+        </form>
+      )}
+
       <nav
         className={`header__mobile-nav${menuOpen ? " header__mobile-nav--open" : ""}`}
       >
-        <Link to="/" onClick={closeMenu}>
-          Shop
-        </Link>
-        <Link to="/categories" onClick={closeMenu}>
-          Categories
-        </Link>
-        <Link to="/deals" onClick={closeMenu}>
-          Deals
-        </Link>
-        <Link to="/about" onClick={closeMenu}>
-          About
-        </Link>
+        {NAV_LINKS.map((link) => (
+          <NavLink
+            key={link.to}
+            to={link.to}
+            end={link.end}
+            onClick={closeMenu}
+          >
+            {link.label}
+          </NavLink>
+        ))}
       </nav>
     </header>
   );
