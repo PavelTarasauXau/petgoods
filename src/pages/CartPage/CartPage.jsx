@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../../context/CartContext.jsx";
+import { useCart } from "../../context/useCart";
+import { formatPrice, pluralizeItems } from "../../utils/format";
 import "./CartPage.css";
 import labelIcon from "../../assets/label.png";
 import clockIcon from "../../assets/clock.png";
@@ -10,34 +11,41 @@ import bagIcon from "../../assets/bag.png";
 
 const TAX_RATE = 0.08;
 const FREE_SHIPPING_MIN = 50;
-const VALID_PROMO = "SAVE10";
 
 function CartPage() {
-  const { lines, increment, decrement, removeLine, subtotal } = useCart();
+  const {
+    items,
+    increment,
+    decrement,
+    removeItem,
+    totalItemCount,
+    subtotal,
+    promoCode,
+    promoDiscountRate,
+    applyPromo,
+  } = useCart();
   const [promoInput, setPromoInput] = useState("");
-  const [promoApplied, setPromoApplied] = useState(false);
   const [promoError, setPromoError] = useState(null);
 
-  const itemCount = lines.reduce((n, line) => n + line.quantity, 0);
   const tax = subtotal * TAX_RATE;
   const beforeDiscount = subtotal + tax;
-  const discount = promoApplied ? beforeDiscount * 0.1 : 0;
+  const discount = beforeDiscount * promoDiscountRate;
+  const discountPercent = Math.round(promoDiscountRate * 100);
   const orderTotal = beforeDiscount - discount;
   const qualifiesFreeShipping = subtotal >= FREE_SHIPPING_MIN;
 
   function handlePromoApply(event) {
     event.preventDefault();
-    const code = promoInput.trim();
-    if (code === "") return;
-    if (code === VALID_PROMO) {
-      setPromoApplied(true);
+    if (promoInput.trim() === "") return;
+    if (applyPromo(promoInput)) {
+      setPromoInput("");
       setPromoError(null);
       return;
     }
-    setPromoError("Неверный промокод");
+    setPromoError("Invalid promo code");
   }
 
-  if (lines.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="cart-page cart-page--empty">
         <div className="container cart-page__empty-inner">
@@ -67,8 +75,7 @@ function CartPage() {
             <div>
               <h1 className="cart-page__title">Shopping Bag</h1>
               <p className="cart-page__subtitle">
-                {itemCount} {itemCount === 1 ? "item" : "items"} ready for
-                checkout
+                {pluralizeItems(totalItemCount)} ready for checkout
               </p>
             </div>
 
@@ -111,7 +118,7 @@ function CartPage() {
               </span>
             ) : (
               <span className="cart-page__shipping-hint">
-                Add ${(FREE_SHIPPING_MIN - subtotal).toFixed(2)} more
+                Add {formatPrice(FREE_SHIPPING_MIN - subtotal)} more
               </span>
             )}
           </div>
@@ -121,47 +128,49 @@ function CartPage() {
       <div className="container cart-page__container cart-page__content">
         <div className="cart-page__grid">
           <ul className="cart-page__items">
-            {lines.map((line) => {
-              const lineTotal = line.price * line.quantity;
+            {items.map(({ product, quantity }) => {
+              const lineTotal = product.price * quantity;
 
               return (
-                <li key={line.lineId} className="cart-line">
+                <li key={product.id} className="cart-line">
                   <Link
-                    to={`/product/${line.productId}`}
+                    to={`/product/${product.id}`}
                     className="cart-line__image-link"
                   >
-                    <img src={line.image} alt="" className="cart-line__thumb" />
+                    <img
+                      src={product.image}
+                      alt=""
+                      className="cart-line__thumb"
+                    />
                   </Link>
 
                   <div className="cart-line__main">
                     <Link
-                      to={`/product/${line.productId}`}
+                      to={`/product/${product.id}`}
                       className="cart-line__title-link"
                     >
-                      <h2 className="cart-line__title">{line.title}</h2>
+                      <h2 className="cart-line__title">{product.title}</h2>
                     </Link>
 
-                    <p className="cart-line__category">{line.category}</p>
+                    <p className="cart-line__category">{product.category}</p>
 
                     <div className="cart-line__row">
                       <div className="cart-line__qty">
                         <button
                           type="button"
                           className="cart-line__qty-btn"
-                          onClick={() => decrement(line.lineId)}
+                          onClick={() => decrement(product.id)}
                           aria-label="Decrease quantity"
                         >
                           −
                         </button>
 
-                        <span className="cart-line__qty-value">
-                          {line.quantity}
-                        </span>
+                        <span className="cart-line__qty-value">{quantity}</span>
 
                         <button
                           type="button"
                           className="cart-line__qty-btn"
-                          onClick={() => increment(line.lineId)}
+                          onClick={() => increment(product.id)}
                           aria-label="Increase quantity"
                         >
                           +
@@ -170,10 +179,10 @@ function CartPage() {
 
                       <div className="cart-line__prices">
                         <span className="cart-line__line-total">
-                          ${lineTotal.toFixed(2)}
+                          {formatPrice(lineTotal)}
                         </span>
                         <span className="cart-line__each">
-                          ${line.price.toFixed(2)} each
+                          {formatPrice(product.price)} each
                         </span>
                       </div>
                     </div>
@@ -182,8 +191,8 @@ function CartPage() {
                   <button
                     type="button"
                     className="cart-line__remove"
-                    onClick={() => removeLine(line.lineId)}
-                    aria-label={`Remove ${line.title}`}
+                    onClick={() => removeItem(product.id)}
+                    aria-label={`Remove ${product.title}`}
                   >
                     <img src={binIcon} alt="" />
                   </button>
@@ -196,7 +205,7 @@ function CartPage() {
             <div className="cart-summary__head">
               <h2 className="cart-summary__head-title">Order Summary</h2>
               <p className="cart-summary__head-sub">
-                {itemCount} items in your bag
+                {pluralizeItems(totalItemCount)} in your bag
               </p>
             </div>
 
@@ -235,33 +244,33 @@ function CartPage() {
               </p>
             )}
 
-            {promoApplied && (
+            {promoCode && (
               <p className="cart-summary__promo-ok">
-                Promo SAVE10 applied (10% off)
+                Promo {promoCode} applied ({discountPercent}% off)
               </p>
             )}
 
             <dl className="cart-summary__rows">
               <div className="cart-summary__row">
                 <dt>Subtotal</dt>
-                <dd>${subtotal.toFixed(2)}</dd>
+                <dd>{formatPrice(subtotal)}</dd>
               </div>
 
               <div className="cart-summary__row">
-                <dt>Tax (8%)</dt>
-                <dd>${tax.toFixed(2)}</dd>
+                <dt>Tax ({TAX_RATE * 100}%)</dt>
+                <dd>{formatPrice(tax)}</dd>
               </div>
 
-              {promoApplied && (
+              {promoCode && (
                 <div className="cart-summary__row cart-summary__row--muted">
-                  <dt>Discount (10%)</dt>
-                  <dd>−${discount.toFixed(2)}</dd>
+                  <dt>Discount ({discountPercent}%)</dt>
+                  <dd>−{formatPrice(discount)}</dd>
                 </div>
               )}
 
               <div className="cart-summary__row cart-summary__row--total">
                 <dt>Total</dt>
-                <dd>${orderTotal.toFixed(2)}</dd>
+                <dd>{formatPrice(orderTotal)}</dd>
               </div>
             </dl>
 

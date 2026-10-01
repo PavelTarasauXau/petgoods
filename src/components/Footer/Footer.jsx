@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
@@ -7,7 +8,26 @@ import twitterIcon from "../../assets/twitter.png";
 import instagramIcon from "../../assets/instagram.png";
 import facebookIcon from "../../assets/facebook.png";
 
+const SOCIAL_LINKS = [
+  { href: "https://www.facebook.com/", label: "Facebook", icon: facebookIcon },
+  { href: "https://x.com/", label: "Twitter", icon: twitterIcon },
+  {
+    href: "https://www.instagram.com/",
+    label: "Instagram",
+    icon: instagramIcon,
+  },
+];
+
 function Footer() {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  function handleSubscribe(event) {
+    event.preventDefault();
+    setIsSubscribed(true);
+    setEmail("");
+  }
+
   return (
     <footer className="footer">
       <div className="footer__container">
@@ -55,11 +75,18 @@ function Footer() {
               Subscribe to get special offers and updates.
             </p>
 
-            <form className="footer__form">
+            <form className="footer__form" onSubmit={handleSubscribe}>
               <input
                 type="email"
                 placeholder="Your email"
                 className="footer__input"
+                aria-label="Your email"
+                required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setIsSubscribed(false);
+                }}
               />
               <button
                 type="submit"
@@ -69,6 +96,12 @@ function Footer() {
                 <img src={mailIcon} alt="" />
               </button>
             </form>
+
+            {isSubscribed && (
+              <p className="footer__form-note" role="status">
+                Thanks for subscribing!
+              </p>
+            )}
           </div>
         </div>
 
@@ -78,15 +111,18 @@ function Footer() {
           </p>
 
           <div className="footer__socials">
-            <Link to="/" className="footer__social-link" aria-label="Facebook">
-              <img src={facebookIcon} alt="" />
-            </Link>
-            <Link to="/" className="footer__social-link" aria-label="Twitter">
-              <img src={twitterIcon} alt="" />
-            </Link>
-            <Link to="/" className="footer__social-link" aria-label="Instagram">
-              <img src={instagramIcon} alt="" />
-            </Link>
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="footer__social-link"
+                aria-label={link.label}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src={link.icon} alt="" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

@@ -1,10 +1,14 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ProductGallery.css";
 
 function ProductGallery({ images, productTitle }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animDir, setAnimDir] = useState(null);
   const animTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(animTimeoutRef.current);
+  }, []);
 
   const count = images.length;
   const safeIndex = count > 0 ? activeIndex % count : 0;
@@ -31,6 +35,8 @@ function ProductGallery({ images, productTitle }) {
 
   if (count === 0) return null;
 
+  const hasMultipleImages = count > 1;
+
   return (
     <div className="product-gallery">
       <div className="product-gallery__viewport">
@@ -42,46 +48,50 @@ function ProductGallery({ images, productTitle }) {
         />
       </div>
 
-      <div className="product-gallery__controls">
-        <button
-          type="button"
-          className="product-gallery__arrow product-gallery__arrow--prev"
-          onClick={goToPrevious}
-          aria-label="Previous image"
-        >
-          ‹
-        </button>
-        <button
-          type="button"
-          className="product-gallery__arrow product-gallery__arrow--next"
-          onClick={goToNext}
-          aria-label="Next image"
-        >
-          ›
-        </button>
-      </div>
+      {hasMultipleImages && (
+        <>
+          <div className="product-gallery__controls">
+            <button
+              type="button"
+              className="product-gallery__arrow product-gallery__arrow--prev"
+              onClick={goToPrevious}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="product-gallery__arrow product-gallery__arrow--next"
+              onClick={goToNext}
+              aria-label="Next image"
+            >
+              ›
+            </button>
+          </div>
 
-      <div
-        className="product-gallery__dots"
-        role="tablist"
-        aria-label="Slide indicators"
-      >
-        {images.map((_, index) => (
-          <button
-            key={index}
-            type="button"
-            role="tab"
-            aria-selected={index === safeIndex}
-            className={
-              index === safeIndex
-                ? "product-gallery__dot product-gallery__dot--active"
-                : "product-gallery__dot"
-            }
-            onClick={() => goToIndex(index)}
-            aria-label={`Show image ${index + 1}`}
-          />
-        ))}
-      </div>
+          <div
+            className="product-gallery__dots"
+            role="tablist"
+            aria-label="Slide indicators"
+          >
+            {images.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                role="tab"
+                aria-selected={index === safeIndex}
+                className={
+                  index === safeIndex
+                    ? "product-gallery__dot product-gallery__dot--active"
+                    : "product-gallery__dot"
+                }
+                onClick={() => goToIndex(index)}
+                aria-label={`Show image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import "./AboutPage.css";
-
 function AboutPage() {
   return (
     <div className="page page--about">

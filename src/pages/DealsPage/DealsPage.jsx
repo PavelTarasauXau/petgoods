@@ -1,5 +1,3 @@
-import "./DealsPage.css";
-
 function DealsPage() {
   return (
     <div className="page page--deals">
