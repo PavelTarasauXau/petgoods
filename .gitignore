@@ -32,3 +32,6 @@ __pycache__/
 
 # Environment
 .env
+
+# Local notes
+PLAN.md
