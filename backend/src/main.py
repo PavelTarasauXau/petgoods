@@ -4,24 +4,17 @@ from typing import AsyncIterator
 
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import text
-
-from src.core.database import Session, engine
+from src.core.database import Session, engine, Base
+from src.models import User, UserRole, Cart, CartItem, Product, PromoCode
 
 logger = logging.getLogger("uvicorn.error")
 
-
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    async with engine.connect() as conn:
-        await conn.execute(text("SELECT 1"))
-    logger.info("Database connection OK")
-    #здесь позже инициализация Redis
-
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     yield
-    
-    #здесь позже закрытие Redis
     await engine.dispose()
-    logger.info("Database connections closed")
 
 
 app = FastAPI(title="PawsStore API", lifespan=lifespan)
