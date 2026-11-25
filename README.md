@@ -37,3 +37,21 @@ uv run fastapi dev
 
 Проверка API доступна на [`/api/health`](http://127.0.0.1:8000/api/health)
 и [`/api/health/db`](http://127.0.0.1:8000/api/health/db).
+
+## Начальные данные для разработки
+
+После применения миграций добавьте в `backend/.env` пароли в
+`SEED_ADMIN_PASSWORD` и `SEED_CUSTOMER_PASSWORD`. Для каждого пароля
+нужно минимум 12 символов. При необходимости укажите свои адреса в
+`SEED_ADMIN_EMAIL` и `SEED_CUSTOMER_EMAIL`.
+
+Запустите из папки `backend` в том же терминале, где задан
+`DATABASE_URL` контейнерной БД.
+
+```powershell
+uv run python -m src.seed
+```
+
+Команда добавляет администратора `admin@example.com`, покупателя
+`customer@example.com` и промокод `SAVE10` со скидкой 10%.
+Повторный запуск сохраняет существующие пароли, роли и параметры промокода.
