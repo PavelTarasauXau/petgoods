@@ -1,20 +1,20 @@
-import logging
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import AsyncIterator
 
+from asyncpg import InterfaceError, PostgresError
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import text
-from src.core.database import Session, engine, Base
-from src.models import User, UserRole, Cart, CartItem, Product, PromoCode
+from sqlalchemy.exc import SQLAlchemyError
 
-logger = logging.getLogger("uvicorn.error")
+from src.core.database import Session, engine
+
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
-    await engine.dispose()
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    try:
+        yield
+    finally:
+        await engine.dispose()
 
 
 app = FastAPI(title="PawsStore API", lifespan=lifespan)
@@ -29,6 +29,6 @@ async def health():
 async def health_db(session: Session):
     try:
         await session.execute(text("SELECT 1"))
-    except Exception:
-        raise HTTPException(status_code=503, detail="database unavailable")
+    except (SQLAlchemyError, PostgresError, InterfaceError, OSError) as exc:
+        raise HTTPException(status_code=503, detail="database unavailable") from exc
     return {"status": "ok", "database": "up"}
