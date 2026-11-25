@@ -1,6 +1,5 @@
 import asyncio
 
-from argon2 import PasswordHasher
 from pydantic import EmailStr, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import select
@@ -8,6 +7,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.database import async_session_maker, engine
+from src.core.security import hash_password
 from src.models import PromoCode, User, UserRole
 
 
@@ -56,9 +56,8 @@ async def main() -> None:
                 "The administrator and customer must have different emails"
             )
 
-        hasher = PasswordHasher()
-        admin_hash = hasher.hash(settings.admin_password.get_secret_value())
-        customer_hash = hasher.hash(settings.customer_password.get_secret_value())
+        admin_hash = hash_password(settings.admin_password.get_secret_value())
+        customer_hash = hash_password(settings.customer_password.get_secret_value())
 
         async with async_session_maker.begin() as session:
             await ensure_user(session, admin_email, admin_hash, UserRole.ADMIN)

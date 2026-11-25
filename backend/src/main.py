@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
+from src.api.auth import router as auth_router
 from src.core.database import Session, engine
 
 
@@ -18,6 +19,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="PawsStore API", lifespan=lifespan)
+app.include_router(auth_router)
 
 
 @app.get("/api/health")
