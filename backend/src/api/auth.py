@@ -1,35 +1,25 @@
-import logging
 from collections.abc import Awaitable, Callable
 from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 import jwt
-from asyncpg import (
-    CannotConnectNowError,
-    PostgresConnectionError,
-    TooManyConnectionsError,
-)
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.concurrency import run_in_threadpool
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from fastapi.routing import APIRoute
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, ConfigDict, EmailStr, Field, SecretStr, field_validator
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
-from sqlalchemy.exc import DBAPIError
-from sqlalchemy.exc import TimeoutError as PoolTimeoutError
 
+from src.api.database_route import DatabaseRoute
 from src.core.config import settings
 from src.core.database import Session
 from src.core.security import hash_password, verify_password
 from src.models import User, UserRole
+from src.schemas.auth import LoginRequest, RegisterRequest, TokenResponse, UserResponse
 
-logger = logging.getLogger(__name__)
 
-
-class AuthRoute(APIRoute):
+class AuthRoute(DatabaseRoute):
     def get_route_handler(self) -> Callable[[Request], Awaitable[Response]]:
         route = super().get_route_handler()
 
@@ -42,24 +32,6 @@ class AuthRoute(APIRoute):
                     for error in exc.errors()
                 ]
                 return JSONResponse(status_code=422, content={"detail": errors})
-            except (
-                OSError,
-                DBAPIError,
-                PoolTimeoutError,
-                PostgresConnectionError,
-                CannotConnectNowError,
-                TooManyConnectionsError,
-            ) as exc:
-                if isinstance(exc, DBAPIError) and not exc.connection_invalidated:
-                    raise
-                logger.warning(
-                    "PostgreSQL unavailable during authentication: %s",
-                    type(exc).__name__,
-                )
-                raise HTTPException(
-                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                    detail="database unavailable",
-                ) from exc
 
         return handle
 
@@ -76,36 +48,6 @@ BearerCredentials = Annotated[
 ]
 JWT_ALGORITHM = "HS256"
 _UNKNOWN_PASSWORD_HASH = hash_password("unused-credential-for-login-timing")
-
-
-class LoginRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-
-    email: EmailStr
-    password: SecretStr
-
-    @field_validator("email")
-    @classmethod
-    def normalize_email(cls, email: str) -> str:
-        return email.lower()
-
-
-class RegisterRequest(LoginRequest):
-    password: SecretStr = Field(min_length=12)
-
-
-class UserResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    email: EmailStr
-    role: UserRole
-    created_at: datetime
-
-
-class TokenResponse(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
 
 
 def unauthorized(detail: str) -> HTTPException:
