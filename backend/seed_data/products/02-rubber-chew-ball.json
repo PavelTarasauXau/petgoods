@@ -1,0 +1,47 @@
+{
+  "title": "Interactive Rubber Chew Ball",
+  "description": "Durable rubber chew ball designed for aggressive chewers. Features textured surface for dental health and can be filled with treats for extended playtime. Bounces unpredictably for exciting fetch games. Non-toxic, BPA-free rubber material.",
+  "price": 15.99,
+  "images": [
+    "http://127.0.0.1:8000/media/products/rubber-chew-ball/main.jpg",
+    "http://127.0.0.1:8000/media/products/rubber-chew-ball/angle.jpg",
+    "http://127.0.0.1:8000/media/products/rubber-chew-ball/detail.jpg"
+  ],
+  "rating": 5,
+  "category": "Toys & Scratchers",
+  "specs": {
+    "specifications": [
+      {
+        "label": "Diameter",
+        "value": "3.5 inches"
+      },
+      {
+        "label": "Material",
+        "value": "Natural Rubber"
+      },
+      {
+        "label": "Treat Compartment",
+        "value": "Yes"
+      },
+      {
+        "label": "Safety",
+        "value": "BPA-Free, Non - Toxic"
+      },
+      {
+        "label": "Suitable for",
+        "value": "All Dog Sizes"
+      }
+    ],
+    "highlights": [
+      "Diameter: 3.5 inches",
+      "Material: 100% Non-Toxic Rubber",
+      "Treat Compartment: Yes"
+    ],
+    "reviews": 5,
+    "source_id": 2,
+    "related_source_ids": [
+      3,
+      5
+    ]
+  }
+}

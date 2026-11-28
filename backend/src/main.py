@@ -1,11 +1,12 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from asyncpg import InterfaceError, PostgresError
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
-
 from src.api.auth import router as auth_router
 from src.api.products import router as products_router
 from src.core.database import Session, engine
@@ -22,6 +23,11 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 app = FastAPI(title="PawsStore API", lifespan=lifespan)
 app.include_router(auth_router)
 app.include_router(products_router)
+app.mount(
+    "/media",
+    StaticFiles(directory=Path(__file__).resolve().parents[1] / "media"),
+    name="media",
+)
 
 
 @app.get("/api/health")

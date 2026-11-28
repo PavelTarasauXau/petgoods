@@ -1,0 +1,89 @@
+{
+  "tool": "Built-in imagegen",
+  "images": [
+    {
+      "file": "../media/products/travel-carrier/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: Airline-approved soft-sided pet travel carrier. Low rectangular duffel with softly rounded corners, charcoal gray woven polyester, black mesh ventilation on long sides and short zippered door, dark gray reinforced piping, two black carry handles with a charcoal padded grip, detachable black shoulder strap, soft pale-gray fleece pad visible faintly through mesh. It accommodates a small pet. Keep this design consistent; the bag has a single compartment and no pockets except a shallow side slip pocket.\nView: Front three-quarter angle with the front mesh door closed. Show full bag shape, both side vent and short front door, padded handles neatly held together, shoulder strap folded beside the bag."
+    },
+    {
+      "file": "../media/products/travel-carrier/angle.jpg",
+      "reference": "../media/products/travel-carrier/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Show the entire exact same carrier from the opposite front three-quarter angle and a little higher, with the short mesh door unzipped, folded flat toward the camera on its bottom hinge, revealing the light gray fleece pad, without moving or redesigning the handles."
+    },
+    {
+      "file": "../media/products/travel-carrier/detail.jpg",
+      "reference": "../media/products/travel-carrier/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Tight close-up of the rounded front door edge with the paired dark zipper pulls, black mesh and charcoal woven polyester seams, at a shallow oblique angle. Show precise stitches and subtle texture."
+    },
+    {
+      "file": "../media/products/rubber-chew-ball/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: A small round 3.5 inch durable matte natural rubber dog chew ball, exactly two molded color regions, deep teal green over about two thirds and warm coral orange over the remaining third with a smooth curved boundary. Subtle rounded raised texture integrated into the rubber and a single small round hollow treat port with a gently ridged lip. Slight realistic molded seam, no brand, no other holes.\nView: Front three-quarter photograph at low tabletop height, showing the attractive teal and coral colors and the small treat port. Project a clean round silhouette; the ball is the only item in the shot."
+    },
+    {
+      "file": "../media/products/rubber-chew-ball/angle.jpg",
+      "reference": "../media/products/rubber-chew-ball/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: A clearly different full-product high three-quarter view, with the ball rolled so the warm coral-orange region is at the left and the rim of its single teal treat port is visible toward the right edge. Preserve the one hole, curved embossed pattern and sphere diameter."
+    },
+    {
+      "file": "../media/products/rubber-chew-ball/detail.jpg",
+      "reference": "../media/products/rubber-chew-ball/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: An extreme close-up of the treat port's ridged teal lip, pebbled matte natural rubber grain and one curved teal raised stripe, with a small patch of coral at a lateral edge. Preserve the port depth and shape."
+    },
+    {
+      "file": "../media/products/cat-scratching-post/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: Compact freestanding 38-inch three-tier cat scratching tree, a square 20×20 inch dark charcoal plush plinth, three staggered square plush platforms at distinct heights in matching charcoal, tan natural sisal rope-wrapped posts between the tiers. Simple physically plausible stable geometry with an unobstructed stepping route. No cave, basket, dangling toys or logos.\nView: Full height front three-quarter shot, all three offset levels and square base fully visible. Leave breathing room above the top perch. Horizontal neutral studio floor and wall blend softly."
+    },
+    {
+      "file": "../media/products/cat-scratching-post/angle.jpg",
+      "reference": "../media/products/cat-scratching-post/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Show the complete exact same asymmetrically staggered tree from its opposite side at a slightly higher angle. Preserve the three distinct square charcoal platforms, the exact tan post placement and the square dark base. All tiers visible."
+    },
+    {
+      "file": "../media/products/cat-scratching-post/detail.jpg",
+      "reference": "../media/products/cat-scratching-post/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Macro of the side of the central tan sisal post and the charcoal plush edge of the adjacent middle platform. The cream-colored individual rope fibers and thin dark-plush edge are in focus, and the rest of the identical tree is softly blurred."
+    },
+    {
+      "file": "../media/products/memory-foam-bed/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: Orthopedic memory foam pet bed, low rectangular four-inch mattress with gently rounded corners, ivory-oatmeal soft microfiber removable cover, subtle stitched channel along the perimeter, dark charcoal zipper piping around the lower third, and charcoal nonslip fabric base. No tall bolster walls, no loose cushion or pet. Real upholstery surface and believable seams.\nView: Three-quarter front angle from slightly above, entire bed visible; emphasis on the softly rounded shape and thick low profile."
+    },
+    {
+      "file": "../media/products/memory-foam-bed/angle.jpg",
+      "reference": "../media/products/memory-foam-bed/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Low eye-level side profile of the complete exact same oatmeal rectangular bed, shot from slightly to the right, showing its thick mattress profile, rounded corner, dark zip line and textured dark nonslip base."
+    },
+    {
+      "file": "../media/products/memory-foam-bed/detail.jpg",
+      "reference": "../media/products/memory-foam-bed/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Tight oblique macro of the seam and closed dark zipper and its one pull near the rounded corner. Oatmeal removable microfiber above, narrow black textured base visible below. Preserve the exact warm natural fabric and stitching."
+    },
+    {
+      "file": "../media/products/stainless-steel-bowl/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: Premium 64-oz 8.5-inch stainless steel dog bowl. Simple circular dishwasher-safe pet bowl with brushed stainless inside, satin-polished outer wall, wide horizontal rolled steel rim and slightly flared body, one black rubber grip ring encircling the bottom edge. No embossed badges, branding or letters.\nView: Front three-quarter view from a moderate slightly elevated angle, so the rim, interior and low black rubber base are all visible. Keep specular metal reflections controlled."
+    },
+    {
+      "file": "../media/products/stainless-steel-bowl/angle.jpg",
+      "reference": "../media/products/stainless-steel-bowl/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Direct overhead view of the entire exact same round empty bowl. Preserve the rolled rim and concentric brushed-steel marks. Center on the same warm off-white background with generous margins. The single bowl is the whole subject."
+    },
+    {
+      "file": "../media/products/stainless-steel-bowl/detail.jpg",
+      "reference": "../media/products/stainless-steel-bowl/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Tight low side macro of the same bowl's satin-brushed sloped metal wall and its black non-slip rubber ring resting on the surface. Subtle highlights, same profile, recognizable plain empty bowl."
+    },
+    {
+      "file": "../media/products/reflective-leash-collar/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one landscape product-gallery photograph for PawsStore. Clean matte warm off-white seamless studio backdrop, soft diffused daylight from upper left, very subtle contact shadow, premium authentic ecommerce product photography with tactile materials. The product is the only subject and fills about 72 percent of the frame. No text, graphic overlays, labels, watermarks, people, animals, props, collages or borders. One photograph per output, centered landscape 3:2.\nSubject: One matching six-foot dog leash and adjustable collar in sand-tan flat woven nylon webbing, exactly two subtle pale-silver reflective stitch lines on each strap, brushed gunmetal swivel snap on the leash, single black side-release buckle and simple silver D-ring on the separate collar. The leash has one sewn loop handle. Accurate hardware and textile construction; no logos, beads, spikes, or branding.\nView: Neat overhead three-quarter catalog arrangement, full leash loosely coiled with snap and loop identifiable, matching collar beside it with the quick-release buckle visible. Two clearly separate pieces."
+    },
+    {
+      "file": "../media/products/reflective-leash-collar/angle.jpg",
+      "reference": "../media/products/reflective-leash-collar/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Full high oblique view of the exact same matching set arranged in a loose S curve rather than a spiral, the loop handle and one swivel snap visible at the ends, the single separate collar in a clean oval. Keep the sand-tan weave and exact two reflective stitch rows."
+    },
+    {
+      "file": "../media/products/reflective-leash-collar/detail.jpg",
+      "reference": "../media/products/reflective-leash-collar/main.jpg",
+      "prompt": "Use case: product-mockup. Asset type: one new landscape 3:2 catalog photo. Input image 1 is the visual identity reference for the same SKU. Use the same physical product, precise color, materials, construction, parts, shape and proportions as the reference. Use the same warm pale seamless studio and soft daylight. One photograph with natural contact shadow and photorealistic texture. No text, watermark, logo, graphic, pet, person, packaging or collage.\nCamera and composition: Oblique close-up of the exact collar's closed black side-release buckle and silver D-ring alongside one segment of the matching tan nylon leash, showing two pale silver reflective stitch rows and woven fibers in detail."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Premium Stainless Steel Dog Bowl",
+  "description": "Durable stainless steel dog bowl designed for medium to large breeds. Non-slip rubber base prevents sliding and spillage. Dishwasher safe and rust-resistant for long-lasting use. Perfect for both food and water.",
+  "price": 24.99,
+  "images": [
+    "http://127.0.0.1:8000/media/products/stainless-steel-bowl/main.jpg",
+    "http://127.0.0.1:8000/media/products/stainless-steel-bowl/angle.jpg",
+    "http://127.0.0.1:8000/media/products/stainless-steel-bowl/detail.jpg"
+  ],
+  "rating": 5,
+  "category": "Bowls & Feeders",
+  "specs": {
+    "specifications": [
+      {
+        "label": "Material",
+        "value": "Stainless Steel"
+      },
+      {
+        "label": "Capacity",
+        "value": "64 oz (1.9 L)"
+      },
+      {
+        "label": "Diameter",
+        "value": "8,5 inches"
+      },
+      {
+        "label": "Care",
+        "value": "Dishwasher Safe"
+      },
+      {
+        "label": "Weight",
+        "value": "1.2 lbs"
+      }
+    ],
+    "highlights": [
+      "Material: Stainless Steel",
+      "Capacity: 64 oz (1.9 L)",
+      "Diameter: 8.5 inches"
+    ],
+    "reviews": 5,
+    "source_id": 5,
+    "related_source_ids": [
+      2,
+      4
+    ]
+  }
+}

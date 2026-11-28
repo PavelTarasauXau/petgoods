@@ -1,0 +1,47 @@
+{
+  "title": "Airline-Approved Pet Travel Carrier",
+  "description": "Soft-sided pet carrier approved for airline cabin use. Features mesh panels for ventilation, padded shoulder strap, and collapsible design for easy storage. Interior fleece pad provides comfort. Meets TSA requirements for in-cabin pet travel.",
+  "price": 54.99,
+  "images": [
+    "http://127.0.0.1:8000/media/products/travel-carrier/main.jpg",
+    "http://127.0.0.1:8000/media/products/travel-carrier/angle.jpg",
+    "http://127.0.0.1:8000/media/products/travel-carrier/detail.jpg"
+  ],
+  "rating": 4,
+  "category": "Travel & Carriers",
+  "specs": {
+    "specifications": [
+      {
+        "label": "Dimensions",
+        "value": "18 x 11 x 11 inches"
+      },
+      {
+        "label": "Material",
+        "value": "Polyester with Mesh Panels"
+      },
+      {
+        "label": "Weight Limit",
+        "value": "Up to 15 lbs"
+      },
+      {
+        "label": "Airline Approved",
+        "value": "Yes (TSA Compliant)"
+      },
+      {
+        "label": "Features",
+        "value": "Collapsible, Padded Strap"
+      }
+    ],
+    "highlights": [
+      "Dimensions: 18 x 11 x 11 inches",
+      "Material: Polyester with Mesh Panels",
+      "Weight limit: Up to 15 lbs"
+    ],
+    "reviews": 3.5,
+    "source_id": 1,
+    "related_source_ids": [
+      2,
+      4
+    ]
+  }
+}

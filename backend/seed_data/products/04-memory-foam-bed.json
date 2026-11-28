@@ -1,0 +1,47 @@
+{
+  "title": "Orthopedic Memory Foam Pet Bed",
+  "description": "Luxurious memory foam pet bed with removable, machine-washable cover. Provides superior support for senior pets and those with joint issues. Water-resistant liner protects the foam core. Available in multiple sizes to fit all breeds.",
+  "price": 69.99,
+  "images": [
+    "http://127.0.0.1:8000/media/products/memory-foam-bed/main.jpg",
+    "http://127.0.0.1:8000/media/products/memory-foam-bed/angle.jpg",
+    "http://127.0.0.1:8000/media/products/memory-foam-bed/detail.jpg"
+  ],
+  "rating": 4,
+  "category": "Beds & Furniture",
+  "specs": {
+    "specifications": [
+      {
+        "label": "Size",
+        "value": "30 x 20 inches"
+      },
+      {
+        "label": "Foam thickness",
+        "value": "4 inches"
+      },
+      {
+        "label": "Cover material",
+        "value": "Microfiber"
+      },
+      {
+        "label": "Washing",
+        "value": "Mashine Washable Cover"
+      },
+      {
+        "label": "Weight",
+        "value": "8 lbs"
+      }
+    ],
+    "highlights": [
+      "Size: Large (40 x 28 inches)",
+      "Foam Thickness: 4 inches",
+      "Cover Material: Microfiber"
+    ],
+    "reviews": 3.5,
+    "source_id": 4,
+    "related_source_ids": [
+      1,
+      5
+    ]
+  }
+}

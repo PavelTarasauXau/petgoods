@@ -1,0 +1,47 @@
+{
+  "title": "Multi-Level Cat Scratching Post",
+  "description": "Three-tier cat scratching post with sisal rope wrapping and plush platforms. Provides multiple levels for climbing, scratching, and resting. Sturdy base ensures stability during active play. Natural jute fibers satisfy your cat's scratching instincts.",
+  "price": 89.99,
+  "images": [
+    "http://127.0.0.1:8000/media/products/cat-scratching-post/main.jpg",
+    "http://127.0.0.1:8000/media/products/cat-scratching-post/angle.jpg",
+    "http://127.0.0.1:8000/media/products/cat-scratching-post/detail.jpg"
+  ],
+  "rating": 4,
+  "category": "Toys & Scratchers",
+  "specs": {
+    "specifications": [
+      {
+        "label": "Height",
+        "value": "38 inches"
+      },
+      {
+        "label": "Base dimensions",
+        "value": "20 × 20"
+      },
+      {
+        "label": "Material",
+        "value": "Sisal Rope & Plush Fabric"
+      },
+      {
+        "label": "Platforms",
+        "value": "3 Levels"
+      },
+      {
+        "label": "Weight capacity",
+        "value": "Up to 25 lbs per platform"
+      }
+    ],
+    "highlights": [
+      "Height: 38 inches",
+      "Base dimensions: 20 × 20",
+      "Material: Sisal Rope & Plush Fabric"
+    ],
+    "reviews": 4,
+    "source_id": 3,
+    "related_source_ids": [
+      2,
+      4
+    ]
+  }
+}
